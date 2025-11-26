@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Лента идей - TripBuilder</title>
-    
-    <!-- CSS -->
+    <title>Главная - Trip Builder</title>
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
@@ -13,271 +11,213 @@
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="header">
-        <div class="header-content">
-            <a href="index.html" class="header-logo">
-                <span>✈️</span>
-                <span class="header-logo-text">TripBuilder</span>
-            </a>
-
-            <div class="header-search">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.35-4.35"></path>
-                </svg>
-                <input type="text" placeholder="Поиск идей...">
-            </div>
-
-            <div class="header-actions">
-                <button class="btn-icon btn--ghost">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                    </svg>
-                </button>
-                <a href="profile.html" class="header-user" style="text-decoration: none;">
-                    <img src="https://via.placeholder.com/36" alt="User" class="user-avatar">
-                    <span class="header-user-name">Профиль</span>
-                </a>
-            </div>
-
-            <button class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+<header class="header">
+    <div class="header-content">
+        <a href="index.html" class="header-logo">
+            <span>✈️</span>
+            <span class="header-logo-text">Trip Builder</span>
+        </a>
+        <div class="header-search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                ircle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="text" placeholder="Поиск путешествий...">
         </div>
-    </header>
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <nav class="sidebar-nav">
-            <a href="index.html" class="nav-item active">
+        <div class="header-actions">
+            <button class="btn-icon btn--ghost">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                 </svg>
-                <span>Главная</span>
-            </a>
-            <a href="route-builder.html" class="nav-item">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                </svg>
-                <span>Маршруты</span>
-            </a>
-            <a href="checklist.html" class="nav-item">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="9 11 12 14 22 4"></polyline>
-                </svg>
-                <span>Список дел</span>
-            </a>
-            <a href="saved-trips.html" class="nav-item">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                </svg>
-                <span>Путешествия</span>
-            </a>
-
-            <div class="sidebar-divider"></div>
-
-            <div class="sidebar-user">
-                <div class="sidebar-user-name">Иван Петров</div>
-                <div class="sidebar-user-email">ivan@example.com</div>
+            </button>
+            <div class="header-user">
+                <img src="https://via.placeholder.com/36" alt="User" class="user-avatar">
             </div>
-        </nav>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <div class="main-wrapper">
-        <main class="main-content">
-            <!-- PAGE HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">Лента идей для путешествий</h1>
-                <p class="page-subtitle">Откройте для себя новые маршруты и вдохновитесь путешествиями других</p>
-            </div>
-
-            <!-- FILTERS -->
-            <div class="filters">
-                <div class="filter-group">
-                    <label class="filter-label">Категория:</label>
-                    <select class="input">
-                        <option>Все категории</option>
-                        <option>Пляжи</option>
-                        <option>Горы</option>
-                        <option>Города</option>
-                        <option>Приключения</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label class="filter-label">Сортировка:</label>
-                    <select class="input">
-                        <option>Новые</option>
-                        <option>Популярные</option>
-                        <option>Рейтинг</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- IDEAS GRID -->
-            <div class="grid">
-                <!-- IDEA CARD 1 -->
-                <div class="card" data-searchable>
-                    <img src="https://via.placeholder.com/320x180" alt="Сицилия" class="card-image">
-                    <div class="card-body">
-                        <h3>Путешествие по Сицилии</h3>
-                        <p>Откройте историческое богатство итальянского острова с посещением древних храмов и красивых пляжей.</p>
-                        <div class="flex justify-between items-center mt-16">
-                            <span class="badge badge--secondary">🏖️ Пляжи</span>
-                            <span style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">7 дней</span>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn-like btn--ghost">
-                            <span>❤️</span>
-                            <span class="like-count">42</span>
-                        </button>
-                        <button class="btn btn--outline btn--sm">Подробнее</button>
-                    </div>
-                </div>
-
-                <!-- IDEA CARD 2 -->
-                <div class="card" data-searchable>
-                    <img src="https://via.placeholder.com/320x180" alt="Япония" class="card-image">
-                    <div class="card-body">
-                        <h3>Весна в Японии</h3>
-                        <p>Насладитесь цветением сакуры и посетите традиционные японские храмы, рынки и города.</p>
-                        <div class="flex justify-between items-center mt-16">
-                            <span class="badge badge--secondary">🌸 Природа</span>
-                            <span style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">10 дней</span>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn-like btn--ghost">
-                            <span>❤️</span>
-                            <span class="like-count">128</span>
-                        </button>
-                        <button class="btn btn--outline btn--sm">Подробнее</button>
-                    </div>
-                </div>
-
-                <!-- IDEA CARD 3 -->
-                <div class="card" data-searchable>
-                    <img src="https://via.placeholder.com/320x180" alt="Швейцария" class="card-image">
-                    <div class="card-body">
-                        <h3>Горные вершины Швейцарии</h3>
-                        <p>Исследуйте Альпийские горы, живописные озёра и очаровательные горные деревни.</p>
-                        <div class="flex justify-between items-center mt-16">
-                            <span class="badge badge--secondary">⛰️ Горы</span>
-                            <span style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">5 дней</span>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn-like btn--ghost">
-                            <span>❤️</span>
-                            <span class="like-count">87</span>
-                        </button>
-                        <button class="btn btn--outline btn--sm">Подробнее</button>
-                    </div>
-                </div>
-
-                <!-- IDEA CARD 4 -->
-                <div class="card" data-searchable>
-                    <img src="https://via.placeholder.com/320x180" alt="Таиланд" class="card-image">
-                    <div class="card-body">
-                        <h3>Остров Бали и Таиланд</h3>
-                        <p>Тропические пляжи, буддийские храмы и экзотическая кухня ждут вас в Юго-Восточной Азии.</p>
-                        <div class="flex justify-between items-center mt-16">
-                            <span class="badge badge--secondary">🌴 Экзотика</span>
-                            <span style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">12 дней</span>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn-like btn--ghost">
-                            <span>❤️</span>
-                            <span class="like-count">156</span>
-                        </button>
-                        <button class="btn btn--outline btn--sm">Подробнее</button>
-                    </div>
-                </div>
-
-                <!-- IDEA CARD 5 -->
-                <div class="card" data-searchable>
-                    <img src="https://via.placeholder.com/320x180" alt="Норвегия" class="card-image">
-                    <div class="card-body">
-                        <h3>Северные огни Норвегии</h3>
-                        <p>Посмотрите великолепное зрелище Северного сияния в норвежской Арктике.</p>
-                        <div class="flex justify-between items-center mt-16">
-                            <span class="badge badge--secondary">✨ Небо</span>
-                            <span style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">3 дня</span>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn-like btn--ghost">
-                            <span>❤️</span>
-                            <span class="like-count">203</span>
-                        </button>
-                        <button class="btn btn--outline btn--sm">Подробнее</button>
-                    </div>
-                </div>
-
-                <!-- IDEA CARD 6 -->
-                <div class="card" data-searchable>
-                    <img src="https://via.placeholder.com/320x180" alt="Греция" class="card-image">
-                    <div class="card-body">
-                        <h3>Древняя Греция</h3>
-                        <p>Исследуйте древние руины Афин, острова Санторини и Крит с прекрасными закатами.</p>
-                        <div class="flex justify-between items-center mt-16">
-                            <span class="badge badge--secondary">🏛️ История</span>
-                            <span style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">8 дней</span>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn-like btn--ghost">
-                            <span>❤️</span>
-                            <span class="like-count">95</span>
-                        </button>
-                        <button class="btn btn--outline btn--sm">Подробнее</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PAGINATION -->
-            <div class="flex justify-center items-center gap-8 my-8" style="margin-top: var(--space-32); margin-bottom: var(--space-32);">
-                <button class="btn btn--secondary btn--sm">← Предыдущая</button>
-                <span style="color: var(--color-text-secondary);">Страница 1 из 5</span>
-                <button class="btn btn--primary btn--sm">Следующая →</button>
-            </div>
-        </main>
+        </div>
+        <button class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
+</header>
 
-    <!-- FOOTER -->
+<aside class="sidebar">
+    <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item active">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            </svg>
+            <span>Главная</span>
+        </a>
+        <a href="route-builder.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+            <span>Маршруты</span>
+        </a>
+        <a href="checklist.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 11 12 14 22 4"></polyline>
+            </svg>
+            <span>Список дел</span>
+        </a>
+        <a href="saved-trips.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                ircle cx="12" cy="12" r="10"></circle>
+            </svg>
+            <span>Путешествия</span>
+        </a>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-user">
+            <div class="sidebar-user-name">Иван Петров</div>
+            <div class="sidebar-user-email">ivan@example.com</div>
+        </div>
+    </nav>
+</aside>
+
+<div class="main-wrapper">
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Лента идей для путешествий</h1>
+            <p class="page-subtitle">Вдохновляйтесь и планируйте новые приключения</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" alt="Париж" class="card-image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h3>Романтичный Париж</h3>
+                    <p>🇫🇷 Франция · 3-5 дней</p>
+                    <p style="color: var(--color-text-secondary); margin: 0;">Эйфелева башня, музеи, кафе на берегу Сены</p>
+                    <div style="margin-top: var(--space-12); display: flex; gap: var(--space-8);">
+                        <span class="badge badge--primary">Романтика</span>
+                        <span class="badge badge--secondary">Культура</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn--primary btn--sm" style="flex: 1;">Создать маршрут</button>
+                    <button class="btn btn--ghost btn--sm" style="padding: 0; width: auto; min-width: 40px;">❤️</button>
+                    <button class="btn btn--ghost btn--sm" style="padding: 0; width: auto; min-width: 40px;">→</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" alt="Таиланд" class="card-image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h3>Экзотический Таиланд</h3>
+                    <p>🇹🇭 Таиланд · 5-7 дней</p>
+                    <p style="color: var(--color-text-secondary); margin: 0;">Храмы, пляжи, ночные рынки</p>
+                    <div style="margin-top: var(--space-12); display: flex; gap: var(--space-8);">
+                        <span class="badge badge--primary">Пляж</span>
+                        <span class="badge badge--secondary">Приключение</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn--primary btn--sm" style="flex: 1;">Создать маршрут</button>
+                    <button class="btn btn--ghost btn--sm" style="padding: 0; width: auto; min-width: 40px;">❤️</button>
+                    <button class="btn btn--ghost btn--sm" style="padding: 0; width: auto; min-width: 40px;">→</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" alt="Япония" class="card-image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h3>Современный Токио</h3>
+                    <p>🇯🇵 Япония · 4-6 дней</p>
+                    <p style="color: var(--color-text-secondary); margin: 0;">Небоскребы, технологии, традиции</p>
+                    <div style="margin-top: var(--space-12); display: flex; gap: var(--space-8);">
+                        <span class="badge badge--primary">Город</span>
+                        <span class="badge badge--secondary">Культура</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn--primary btn--sm" style="flex: 1;">Создать маршрут</button>
+                    <button class="btn btn--ghost btn--sm" style="padding: 0; width: auto; min-width: 40px;">❤️</button>
+                    <button class="btn btn--ghost btn--sm" style="padding: 0; width: auto; min-width: 40px;">→</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" alt="Исландия" class="card-image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h3>Ледяная Исландия</h3>
+                    <p>🇮🇸 Исландия · 5-7 дней</p>
+                    <p style="color: var(--color-text-secondary); margin: 0;">Водопады, гейзеры, ледники</p>
+                    <div style="margin-top: var(--space-12); display: flex; gap: var(--space-8);">
+                        <span class="badge badge--primary">Природа</span>
+                        <span class="badge badge--secondary">Приключение</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn--primary btn--sm" style="flex: 1;">Создать маршрут</button>
+                    <button class="btn btn--ghost btn--sm" style="padding: 0; width: auto; min-width: 40px;">❤️</button>
+                    <button class="btn btn--ghost btn--sm" style="padding: 0; width: auto; min-width: 40px;">→</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" alt="Барселона" class="card-image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h3>Яркая Барселона</h3>
+                    <p>🇪🇸 Испания · 3-4 дня</p>
+                    <p style="color: var(--color-text-secondary); margin: 0;">Саграда Фамилия, пляжи</p>
+                    <div style="margin-top: var(--space-12); display: flex; gap: var(--space-8);">
+                        <span class="badge badge--primary">Город</span>
+                        <span class="badge badge--secondary">Пляж</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn--primary btn--sm" style="flex: 1;">Создать маршрут</button>
+                    <button class="btn btn--ghost btn--sm" style="padding: 0; width: auto; min-width: 40px;">❤️</button>
+                    <button class="btn btn--ghost btn--sm" style="padding: 0; width: auto; min-width: 40px;">→</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" alt="Коста-Рика" class="card-image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h3>Дикая Коста-Рика</h3>
+                    <p>🇨🇷 Коста-Рика · 6-8 дней</p>
+                    <p style="color: var(--color-text-secondary); margin: 0;">Джунгли, вулканы, пляжи</p>
+                    <div style="margin-top: var(--space-12); display: flex; gap: var(--space-8);">
+                        <span class="badge badge--primary">Природа</span>
+                        <span class="badge badge--secondary">Приключение</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn--primary btn--sm" style="flex: 1;">Создать маршрут</button>
+                    <button class="btn btn--ghost btn--sm" style="padding: 0; width: auto; min-width: 40px;">❤️</button>
+                    <button class="btn btn--ghost btn--sm" style="padding: 0; width: auto; min-width: 40px;">→</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
                 <h4>О приложении</h4>
-                <a href="#">О TripBuilder</a>
+                <a href="#">О Trip Builder</a>
                 <a href="#">Свяжитесь с нами</a>
-                <a href="#">Политика приватности</a>
             </div>
             <div class="footer-section">
                 <h4>Ресурсы</h4>
                 <a href="#">Блог</a>
                 <a href="#">FAQ</a>
-                <a href="#">Сообщество</a>
             </div>
             <div class="footer-section">
                 <h4>Социальные сети</h4>
                 <a href="#">Facebook</a>
                 <a href="#">Instagram</a>
-                <a href="#">Twitter</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 TripBuilder. Все права защищены.</p>
+            <p>&copy; 2024 Trip Builder. Все права защищены.</p>
         </div>
     </footer>
+</div>
 
-    <!-- JavaScript -->
-    <script src="js/navigation.js"></script>
+<script src="js/navigation.js"></script>
 </body>
 </html>

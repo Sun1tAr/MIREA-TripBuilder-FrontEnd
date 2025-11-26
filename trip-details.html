@@ -3,484 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Детали путешествия - Travel Planner</title>
-    
-    <!-- CSS -->
+    <title>Детали путешествия - Trip Builder</title>
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/responsive.css">
-    
-    <style>
-        .tabs {
-            display: flex;
-            gap: var(--space-8);
-            border-bottom: 2px solid var(--color-border);
-            margin-bottom: var(--space-20);
-            flex-wrap: wrap;
-        }
-
-        .tab-button {
-            padding: var(--space-12) var(--space-16);
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-size: var(--font-size-base);
-            color: var(--color-text-secondary);
-            border-bottom: 3px solid transparent;
-            transition: all var(--transition-fast);
-            font-weight: var(--font-weight-medium);
-        }
-
-        .tab-button.active {
-            color: var(--color-primary);
-            border-bottom-color: var(--color-primary);
-        }
-
-        .tab-button:hover {
-            color: var(--color-primary);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .collaborator-item {
-            display: flex;
-            gap: var(--space-12);
-            align-items: center;
-            padding: var(--space-12);
-            background: var(--color-bg-primary);
-            border-radius: var(--radius-md);
-            margin-bottom: var(--space-12);
-        }
-
-        .collaborator-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: var(--radius-full);
-            object-fit: cover;
-        }
-
-        .collaborator-info {
-            flex: 1;
-        }
-
-        .collaborator-name {
-            font-weight: var(--font-weight-semibold);
-            margin-bottom: var(--space-2);
-        }
-
-        .collaborator-role {
-            font-size: var(--font-size-sm);
-            color: var(--color-text-secondary);
-        }
-
-        .collaborator-actions {
-            display: flex;
-            gap: var(--space-8);
-        }
-
-        .trip-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-16);
-            margin-bottom: var(--space-20);
-        }
-
-        @media (max-width: 1024px) {
-            .trip-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 640px) {
-            .trip-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .tabs {
-                gap: var(--space-4);
-            }
-
-            .tab-button {
-                padding: var(--space-8) var(--space-12);
-                font-size: var(--font-size-sm);
-            }
-        }
-    </style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="header">
-        <div class="header-content">
-            <a href="index.html" class="header-logo">
-                <span>✈️</span>
-                <span class="header-logo-text">Travel Planner</span>
-            </a>
-
-            <div class="header-search">
+<header class="header">
+    <div class="header-content">
+        <a href="index.html" class="header-logo">
+            <span>✈️</span>
+            <span class="header-logo-text">Trip Builder</span>
+        </a>
+        <div class="header-search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                ircle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="text" placeholder="Поиск...">
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon btn--ghost">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                 </svg>
-                <input type="text" placeholder="Поиск...">
-            </div>
-
-            <div class="header-actions">
-                <button class="btn-icon btn--ghost">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                    </svg>
-                </button>
-                <div class="header-user">
-                    <img src="https://via.placeholder.com/36" alt="User" class="user-avatar">
-                </div>
-            </div>
-
-            <button class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
             </button>
+            <div class="header-user">
+                <img src="https://via.placeholder.com/36" alt="User" class="user-avatar">
+            </div>
         </div>
-    </header>
+        <button class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <nav class="sidebar-nav">
-            <a href="index.html" class="nav-item">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                </svg>
-                <span>Главная</span>
-            </a>
-            <a href="route-builder.html" class="nav-item">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                </svg>
-                <span>Маршруты</span>
-            </a>
-            <a href="checklist.html" class="nav-item">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="9 11 12 14 22 4"></polyline>
-                </svg>
-                <span>Список дел</span>
-            </a>
-            <a href="saved-trips.html" class="nav-item active">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                </svg>
-                <span>Путешествия</span>
-            </a>
+<aside class="sidebar">
+    <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            </svg>
+            <span>Главная</span>
+        </a>
+        <a href="route-builder.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+            <span>Маршруты</span>
+        </a>
+        <a href="checklist.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 11 12 14 22 4"></polyline>
+            </svg>
+            <span>Список дел</span>
+        </a>
+        <a href="saved-trips.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                ircle cx="12" cy="12" r="10"></circle>
+            </svg>
+            <span>Путешествия</span>
+        </a>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-user">
+            <div class="sidebar-user-name">Иван Петров</div>
+            <div class="sidebar-user-email">ivan@example.com</div>
+        </div>
+    </nav>
+</aside>
 
-            <div class="sidebar-divider"></div>
+<div class="main-wrapper">
+    <main class="main-content">
+        <div style="background: var(--gradient-primary); color: white; padding: var(--space-32); border-radius: var(--radius-lg); margin-bottom: var(--space-32);">
+            <a href="saved-trips.html" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: var(--font-size-sm); margin-bottom: var(--space-16); display: inline-block;">← Вернуться к путешествиям</a>
+            <h1 style="margin: var(--space-16) 0 var(--space-8) 0; color: white;">Тур по Италии</h1>
+            <p style="margin: 0; opacity: 0.9;">Май 2024 · 5 дней · 3 города</p>
+        </div>
 
-            <div class="sidebar-user">
-                <div class="sidebar-user-name">Иван Петров</div>
-                <div class="sidebar-user-email">ivan@example.com</div>
-            </div>
-        </nav>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <div class="main-wrapper">
-        <main class="main-content">
-            <!-- TRIP HEADER -->
-            <div class="card" style="margin-bottom: var(--space-20); background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
-                <div class="card-body">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                        <div>
-                            <h1 style="color: white; margin-bottom: var(--space-8);">Тур по Сицилии</h1>
-                            <p style="color: rgba(255,255,255,0.9); margin-bottom: var(--space-16);">
-                                <strong>7 — 14 июня 2024</strong> (5 дней)
-                            </p>
-                            <p style="color: rgba(255,255,255,0.9); font-size: var(--font-size-base);">
-                                Откройте для себя историческое богатство итальянского острова с посещением древних храмов и красивых пляжей.
-                            </p>
-                        </div>
-                        <div style="text-align: right;">
-                            <button class="btn btn--secondary" data-modal-target="share-modal" style="background: white; color: var(--color-primary); margin-bottom: var(--space-8); width: 100%;">
-                                📤 Поделиться
-                            </button>
-                            <button class="btn--icon btn--ghost" style="color: white;">⋮</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- STATISTICS -->
-            <div class="trip-stats">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <div class="stat">
-                            <div class="stat-number" style="color: var(--color-primary);">5</div>
-                            <div class="stat-label">Дней</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body text-center">
-                        <div class="stat">
-                            <div class="stat-number" style="color: var(--color-primary);">3</div>
-                            <div class="stat-label">Города</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body text-center">
-                        <div class="stat">
-                            <div class="stat-number" style="color: var(--color-primary);">4</div>
-                            <div class="stat-label">Участников</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body text-center">
-                        <div class="stat">
-                            <div class="stat-number" style="color: var(--color-primary);">12</div>
-                            <div class="stat-label">Дел в списке</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TABS -->
-            <div class="tabs">
-                <button class="tab-button active" onclick="switchTab(0)">📍 Маршрут</button>
-                <button class="tab-button" onclick="switchTab(1)">✓ Список дел</button>
-                <button class="tab-button" onclick="switchTab(2)">👥 Участники</button>
-                <button class="tab-button" onclick="switchTab(3)">📸 Медиа</button>
-            </div>
-
-            <!-- TAB 1: ROUTE -->
-            <div class="tab-content active">
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-20); margin-bottom: var(--space-32);">
+            <div>
                 <div class="card">
                     <div class="card-header">
-                        <h3 style="margin: 0;">Точки маршрута</h3>
+                        <h3 style="margin: 0;">📍 Маршрут путешествия</h3>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: flex; gap: var(--space-16); margin-bottom: var(--space-16); padding-bottom: var(--space-16); border-bottom: 1px solid var(--color-border);">
+                            <div style="flex-shrink: 0;">
+                                <div style="width: 40px; height: 40px; background: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                            </div>
+                            <div>
+                                <h4 style="margin: 0;">Рим</h4>
+                                <p style="margin: var(--space-4) 0 0 0; color: var(--color-text-secondary);">День 1-2 · 2 дня</p>
+                                <p style="margin: var(--space-8) 0 0 0;">Столица Италии с древней историей</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: var(--space-16); margin-bottom: var(--space-16); padding-bottom: var(--space-16); border-bottom: 1px solid var(--color-border);">
+                            <div style="flex-shrink: 0;">
+                                <div style="width: 40px; height: 40px; background: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                            </div>
+                            <div>
+                                <h4 style="margin: 0;">Флоренция</h4>
+                                <p style="margin: var(--space-4) 0 0 0; color: var(--color-text-secondary);">День 3 · 1 день</p>
+                                <p style="margin: var(--space-8) 0 0 0;">Столица Возрождения</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: var(--space-16);">
+                            <div style="flex-shrink: 0;">
+                                <div style="width: 40px; height: 40px; background: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                            </div>
+                            <div>
+                                <h4 style="margin: 0;">Венеция</h4>
+                                <p style="margin: var(--space-4) 0 0 0; color: var(--color-text-secondary);">День 4-5 · 2 дня</p>
+                                <p style="margin: var(--space-8) 0 0 0;">Город на воде</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 style="margin: 0;">📊 Информация</h3>
                     </div>
                     <div class="card-body">
                         <div style="margin-bottom: var(--space-16);">
-                            <h4 style="margin-bottom: var(--space-8);">1️⃣ Рим, Италия</h4>
-                            <p style="margin: 0 0 var(--space-8) 0;">День 1-2</p>
-                            <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--font-size-sm);">Столица Италии с древними памятниками. Посетите Колизей, Форум и Ватикан.</p>
+                            <p style="margin: 0; font-size: var(--font-size-sm); color: var(--color-text-secondary);">ДАТА НАЧАЛА</p>
+                            <p style="margin: var(--space-4) 0 0 0; font-weight: 600;">1 мая 2024</p>
                         </div>
-                        <hr>
                         <div style="margin-bottom: var(--space-16);">
-                            <h4 style="margin-bottom: var(--space-8);">2️⃣ Флоренция, Италия</h4>
-                            <p style="margin: 0 0 var(--space-8) 0;">День 3</p>
-                            <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--font-size-sm);">Столица возрождения. Посмотрите фрески Микеланджело и кафедральный собор.</p>
+                            <p style="margin: 0; font-size: var(--font-size-sm); color: var(--color-text-secondary);">ДАТА КОНЦА</p>
+                            <p style="margin: var(--space-4) 0 0 0; font-weight: 600;">5 мая 2024</p>
                         </div>
-                        <hr>
-                        <div>
-                            <h4 style="margin-bottom: var(--space-8);">3️⃣ Венеция, Италия</h4>
-                            <p style="margin: 0 0 var(--space-8) 0;">День 4-5</p>
-                            <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--font-size-sm);">Город на воде. Красивые каналы, гондолы и площадь Святого Марка.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 2: CHECKLIST -->
-            <div class="tab-content" style="display: none;">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 style="margin: 0;">Список дел для путешествия</h3>
-                    </div>
-                    <div class="card-body">
-                        <div style="margin-bottom: var(--space-12);">
-                            <div style="display: flex; align-items: center; gap: var(--space-8);">
-                                <input type="checkbox" checked>
-                                <span style="text-decoration: line-through; color: var(--color-text-tertiary);">Забронировать авиабилеты</span>
-                                <span class="badge badge--success">✓</span>
-                            </div>
-                        </div>
-                        <div style="margin-bottom: var(--space-12);">
-                            <div style="display: flex; align-items: center; gap: var(--space-8);">
-                                <input type="checkbox">
-                                <span>Забронировать отели в 3 городах</span>
-                                <span class="badge badge--error">Высокий</span>
-                            </div>
-                        </div>
-                        <div style="margin-bottom: var(--space-12);">
-                            <div style="display: flex; align-items: center; gap: var(--space-8);">
-                                <input type="checkbox">
-                                <span>Получить страховку путешественника</span>
-                                <span class="badge badge--error">Высокий</span>
-                            </div>
-                        </div>
-                        <div style="margin-bottom: var(--space-12);">
-                            <div style="display: flex; align-items: center; gap: var(--space-8);">
-                                <input type="checkbox">
-                                <span>Упаковать чемодан и документы</span>
-                                <span class="badge badge--warning">Средний</span>
-                            </div>
+                        <div style="margin-bottom: var(--space-16);">
+                            <p style="margin: 0; font-size: var(--font-size-sm); color: var(--color-text-secondary);">ДЛИТЕЛЬНОСТЬ</p>
+                            <p style="margin: var(--space-4) 0 0 0; font-weight: 600;">5 дней</p>
                         </div>
                         <div>
-                            <div style="display: flex; align-items: center; gap: var(--space-8);">
-                                <input type="checkbox">
-                                <span>Проверить валидность паспорта</span>
-                                <span class="badge badge--error">Высокий</span>
-                            </div>
+                            <p style="margin: 0; font-size: var(--font-size-sm); color: var(--color-text-secondary);">СОУЧАСТНИКИ</p>
+                            <p style="margin: var(--space-4) 0 0 0; font-weight: 600;">4 человека</p>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- TAB 3: COLLABORATORS -->
-            <div class="tab-content" style="display: none;">
-                <div class="card">
+                <div class="card" style="margin-top: var(--space-20);">
                     <div class="card-header">
-                        <h3 style="margin: 0;">Участники путешествия</h3>
+                        <h3 style="margin: 0;">👥 Участники</h3>
                     </div>
                     <div class="card-body">
-                        <!-- Collaborator 1 (Owner) -->
-                        <div class="collaborator-item">
-                            <img src="https://via.placeholder.com/44" alt="User" class="collaborator-avatar">
-                            <div class="collaborator-info">
-                                <div class="collaborator-name">Иван Петров (Вы)</div>
-                                <div class="collaborator-role">Организатор</div>
-                            </div>
-                            <div class="collaborator-actions">
-                                <span class="badge badge--primary">👑 Owner</span>
+                        <div style="display: flex; gap: var(--space-8); margin-bottom: var(--space-12);">
+                            <img src="https://via.placeholder.com/32" alt="User" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+                            <div style="flex: 1;">
+                                <p style="margin: 0; font-weight: 500;">Иван Петров</p>
+                                <p style="margin: 0; font-size: var(--font-size-sm); color: var(--color-text-secondary);">Организатор</p>
                             </div>
                         </div>
-
-                        <!-- Collaborator 2 (Editor) -->
-                        <div class="collaborator-item">
-                            <img src="https://via.placeholder.com/44" alt="User" class="collaborator-avatar">
-                            <div class="collaborator-info">
-                                <div class="collaborator-name">Мария Сидорова</div>
-                                <div class="collaborator-role">maria@example.com</div>
-                            </div>
-                            <div class="collaborator-actions">
-                                <select class="input" style="width: 120px; padding: var(--space-6);">
-                                    <option>Editor</option>
-                                    <option>Viewer</option>
-                                </select>
-                                <button class="btn-icon btn--ghost">🗑️</button>
-                            </div>
-                        </div>
-
-                        <!-- Collaborator 3 (Viewer) -->
-                        <div class="collaborator-item">
-                            <img src="https://via.placeholder.com/44" alt="User" class="collaborator-avatar">
-                            <div class="collaborator-info">
-                                <div class="collaborator-name">Петр Иванов</div>
-                                <div class="collaborator-role">petr@example.com</div>
-                            </div>
-                            <div class="collaborator-actions">
-                                <select class="input" style="width: 120px; padding: var(--space-6);">
-                                    <option>Viewer</option>
-                                    <option>Editor</option>
-                                </select>
-                                <button class="btn-icon btn--ghost">🗑️</button>
-                            </div>
-                        </div>
-
-                        <!-- Collaborator 4 (Viewer) -->
-                        <div class="collaborator-item">
-                            <img src="https://via.placeholder.com/44" alt="User" class="collaborator-avatar">
-                            <div class="collaborator-info">
-                                <div class="collaborator-name">Анна Смирнова</div>
-                                <div class="collaborator-role">anna@example.com</div>
-                            </div>
-                            <div class="collaborator-actions">
-                                <select class="input" style="width: 120px; padding: var(--space-6);">
-                                    <option>Viewer</option>
-                                    <option>Editor</option>
-                                </select>
-                                <button class="btn-icon btn--ghost">🗑️</button>
-                            </div>
-                        </div>
-
-                        <hr style="margin: var(--space-16) 0;">
-
-                        <div class="form-group">
-                            <label for="invite-email" class="input-label">Пригласить новых участников</label>
-                            <div style="display: flex; gap: var(--space-8);">
-                                <input type="email" id="invite-email" class="input" placeholder="email@example.com" style="flex: 1;">
-                                <select class="input" style="width: 120px;">
-                                    <option>Editor</option>
-                                    <option>Viewer</option>
-                                </select>
-                                <button class="btn btn--primary">Пригласить</button>
+                        <div style="display: flex; gap: var(--space-8);">
+                            <img src="https://via.placeholder.com/32" alt="User" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+                            <div style="flex: 1;">
+                                <p style="margin: 0; font-weight: 500;">Мария Сидорова</p>
+                                <p style="margin: 0; font-size: var(--font-size-sm); color: var(--color-text-secondary);">Участник</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- TAB 4: MEDIA -->
-            <div class="tab-content" style="display: none;">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 style="margin: 0;">Фотографии и видео</h3>
-                    </div>
-                    <div class="card-body">
-                        <p style="text-align: center; color: var(--color-text-secondary); padding: var(--space-32) 0;">
-                            📸 Здесь появятся фотографии и видео из путешествия
-                        </p>
-                        <button class="btn btn--primary btn--full">Загрузить медиа</button>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- SHARE MODAL -->
-    <div class="modal" id="share-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 style="margin: 0;">Поделиться путешествием</h3>
-                <button class="modal-close" data-modal-close>✕</button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="share-link" class="input-label">Ссылка для совместного доступа</label>
-                    <div style="display: flex; gap: var(--space-8);">
-                        <input type="text" id="share-link" class="input" value="https://travelplanner.com/trips/share/ABC123XYZ" readonly>
-                        <button class="btn btn--secondary btn--copy" data-copy="https://travelplanner.com/trips/share/ABC123XYZ">Копировать</button>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="share-email" class="input-label">Отправить по почте</label>
-                    <div style="display: flex; gap: var(--space-8);">
-                        <input type="email" id="share-email" class="input" placeholder="Адрес электронной почты">
-                        <select class="input" style="width: 100px;">
-                            <option>Editor</option>
-                            <option>Viewer</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div style="margin-top: var(--space-20);">
-                    <h4 style="margin-bottom: var(--space-12);">Поделиться в соцсетях</h4>
-                    <div style="display: flex; gap: var(--space-8);">
-                        <button class="btn btn--secondary">Facebook</button>
-                        <button class="btn btn--secondary">Twitter</button>
-                        <button class="btn btn--secondary">WhatsApp</button>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn--secondary" data-modal-close>Закрыть</button>
-                <button class="btn btn--primary">Поделиться</button>
             </div>
         </div>
-    </div>
 
-    <!-- FOOTER -->
+        <div style="display: flex; gap: var(--space-12);">
+            <button class="btn btn--primary" style="flex: 1;">Редактировать путешествие</button>
+            <button class="btn btn--secondary" style="flex: 1;">Поделиться ссылкой</button>
+            <button class="btn btn--outline" style="flex: 1;">Скачать PDF</button>
+        </div>
+    </main>
+
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
                 <h4>О приложении</h4>
-                <a href="#">О Travel Planner</a>
+                <a href="#">О Trip Builder</a>
                 <a href="#">Свяжитесь с нами</a>
             </div>
             <div class="footer-section">
@@ -495,26 +202,11 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 Travel Planner. Все права защищены.</p>
+            <p>&copy; 2024 Trip Builder. Все права защищены.</p>
         </div>
     </footer>
+</div>
 
-    <script src="js/navigation.js"></script>
-    <script>
-        function switchTab(index) {
-            const contents = document.querySelectorAll('.tab-content');
-            const buttons = document.querySelectorAll('.tab-button');
-
-            contents.forEach((content, i) => {
-                if (i === index) {
-                    content.classList.add('active');
-                    buttons[i].classList.add('active');
-                } else {
-                    content.classList.remove('active');
-                    buttons[i].classList.remove('active');
-                }
-            });
-        }
-    </script>
+<script src="js/navigation.js"></script>
 </body>
 </html>

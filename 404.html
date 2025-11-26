@@ -3,80 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Страница не найдена</title>
-    
-    <!-- CSS -->
+    <title>Страница не найдена - Trip Builder</title>
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/responsive.css">
-    
     <style>
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--color-primary-lighter) 0%, var(--color-accent-lighter) 100%);
-        }
-
-        .not-found-container {
-            text-align: center;
-            padding: var(--space-32);
-            background: var(--color-bg-secondary);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-xl);
-            max-width: 500px;
-            width: 90%;
-        }
-
-        .not-found-icon {
-            font-size: 80px;
-            margin-bottom: var(--space-16);
-        }
-
-        .not-found-code {
-            font-size: 64px;
-            font-weight: var(--font-weight-bold);
-            color: var(--color-primary);
-            margin: var(--space-16) 0;
-        }
-
-        .not-found-title {
-            font-size: var(--font-size-2xl);
-            font-weight: var(--font-weight-bold);
-            margin-bottom: var(--space-8);
-            color: var(--color-text-primary);
-        }
-
-        .not-found-message {
-            font-size: var(--font-size-base);
-            color: var(--color-text-secondary);
-            margin-bottom: var(--space-32);
-            line-height: var(--line-height-relaxed);
-        }
-
-        .not-found-actions {
-            display: flex;
-            gap: var(--space-12);
-            flex-direction: column;
-        }
+        .error-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 500px; text-align: center; padding: var(--space-32); }
+        .error-code { font-size: 120px; font-weight: var(--font-weight-bold); background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0; line-height: 1; }
+        .error-title { font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); margin: var(--space-16) 0 var(--space-8) 0; }
+        .error-description { font-size: var(--font-size-lg); color: var(--color-text-secondary); margin-bottom: var(--space-32); max-width: 500px; }
+        .error-buttons { display: flex; gap: var(--space-16); flex-wrap: wrap; justify-content: center; }
+        .error-illustration { font-size: 200px; margin-bottom: var(--space-32); line-height: 1; }
     </style>
 </head>
 <body>
-    <div class="not-found-container">
-        <div class="not-found-icon">✈️</div>
-        <div class="not-found-code">404</div>
-        <h1 class="not-found-title">Страница не найдена</h1>
-        <p class="not-found-message">
-            Похоже, вы попытались перейти на маршрут, который не существует. 
-            Проверьте адрес или вернитесь на главную страницу.
-        </p>
-        <div class="not-found-actions">
-            <a href="index.html" class="btn btn--primary">← Вернуться на главную</a>
-            <a href="saved-trips.html" class="btn btn--secondary">Перейти к путешествиям</a>
+<header class="header">
+    <div class="header-content">
+        <a href="index.html" class="header-logo">
+            <span>✈️</span>
+            <span class="header-logo-text">Trip Builder</span>
+        </a>
+        <div class="header-search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                ircle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="text" placeholder="Поиск...">
         </div>
+        <div class="header-actions">
+            <button class="btn-icon btn--ghost">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                </svg>
+            </button>
+            <div class="header-user">
+                <img src="https://via.placeholder.com/36" alt="User" class="user-avatar">
+            </div>
+        </div>
+        <button class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
+</header>
+
+<aside class="sidebar">
+    <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            </svg>
+            <span>Главная</span>
+        </a>
+        <a href="route-builder.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+            <span>Маршруты</span>
+        </a>
+        <a href="checklist.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 11 12 14 22 4"></polyline>
+            </svg>
+            <span>Список дел</span>
+        </a>
+        <a href="saved-trips.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                ircle cx="12" cy="12" r="10"></circle>
+            </svg>
+            <span>Путешествия</span>
+        </a>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-user">
+            <div class="sidebar-user-name">Иван Петров</div>
+            <div class="sidebar-user-email">ivan@example.com</div>
+        </div>
+    </nav>
+</aside>
+
+<div class="main-wrapper">
+    <main class="main-content">
+        <div class="error-container">
+            <div class="error-illustration">🧭</div>
+            <h1 class="error-code">404</h1>
+            <h2 class="error-title">Страница не найдена</h2>
+            <p class="error-description">К сожалению, страница, которую вы ищете, не существует. Возможно, она была перемещена или удалена.</p>
+
+            <div class="error-buttons">
+                <a href="index.html" class="btn btn--primary">← Вернуться на главную</a>
+                <a href="saved-trips.html" class="btn btn--secondary">Мои путешествия →</a>
+            </div>
+
+            <div style="margin-top: var(--space-32); padding-top: var(--space-32); border-top: 1px solid var(--color-border); width: 100%;">
+                <h3 style="margin-top: 0;">Может быть вам нужно:</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-16); margin-top: var(--space-16);">
+                    <a href="index.html" style="padding: var(--space-16); background: var(--color-bg-primary); border-radius: var(--radius-md); text-decoration: none; color: inherit; border: 1px solid transparent;">
+                        <div style="font-size: 32px; margin-bottom: var(--space-8);">🏠</div>
+                        <div style="font-weight: 500;">Главная страница</div>
+                        <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-top: var(--space-4);">Лента идей для путешествий</div>
+                    </a>
+                    <a href="route-builder.html" style="padding: var(--space-16); background: var(--color-bg-primary); border-radius: var(--radius-md); text-decoration: none; color: inherit; border: 1px solid transparent;">
+                        <div style="font-size: 32px; margin-bottom: var(--space-8);">🗺️</div>
+                        <div style="font-weight: 500;">Конструктор маршрута</div>
+                        <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-top: var(--space-4);">Создайте свой маршрут</div>
+                    </a>
+                    <a href="checklist.html" style="padding: var(--space-16); background: var(--color-bg-primary); border-radius: var(--radius-md); text-decoration: none; color: inherit; border: 1px solid transparent;">
+                        <div style="font-size: 32px; margin-bottom: var(--space-8);">✅</div>
+                        <div style="font-weight: 500;">Список дел</div>
+                        <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-top: var(--space-4);">Подготовьтесь к путешествию</div>
+                    </a>
+                    <a href="saved-trips.html" style="padding: var(--space-16); background: var(--color-bg-primary); border-radius: var(--radius-md); text-decoration: none; color: inherit; border: 1px solid transparent;">
+                        <div style="font-size: 32px; margin-bottom: var(--space-8);">💾</div>
+                        <div style="font-weight: 500;">Мои путешествия</div>
+                        <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-top: var(--space-4);">Просмотрите сохранённое</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>О приложении</h4>
+                <a href="#">О Trip Builder</a>
+                <a href="#">Свяжитесь с нами</a>
+            </div>
+            <div class="footer-section">
+                <h4>Ресурсы</h4>
+                <a href="#">Блог</a>
+                <a href="#">FAQ</a>
+            </div>
+            <div class="footer-section">
+                <h4>Социальные сети</h4>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Trip Builder. Все права защищены.</p>
+        </div>
+    </footer>
+</div>
+
+<script src="js/navigation.js"></script>
 </body>
 </html>

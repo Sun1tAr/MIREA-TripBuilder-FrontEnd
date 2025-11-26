@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сохранённые путешествия - Travel Planner</title>
-    
-    <!-- CSS -->
+    <title>Мои путешествия - Trip Builder</title>
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
@@ -13,258 +11,202 @@
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="header">
-        <div class="header-content">
-            <a href="index.html" class="header-logo">
-                <span>✈️</span>
-                <span class="header-logo-text">Travel Planner</span>
-            </a>
-
-            <div class="header-search">
+<header class="header">
+    <div class="header-content">
+        <a href="index.html" class="header-logo">
+            <span>✈️</span>
+            <span class="header-logo-text">Trip Builder</span>
+        </a>
+        <div class="header-search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                ircle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="text" placeholder="Поиск...">
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon btn--ghost">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                 </svg>
-                <input type="text" class="search-input" placeholder="Поиск путешествий...">
-            </div>
-
-            <div class="header-actions">
-                <button class="btn-icon btn--ghost">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                    </svg>
-                </button>
-                <div class="header-user">
-                    <img src="https://via.placeholder.com/36" alt="User" class="user-avatar">
-                </div>
-            </div>
-
-            <button class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
             </button>
+            <div class="header-user">
+                <img src="https://via.placeholder.com/36" alt="User" class="user-avatar">
+            </div>
         </div>
-    </header>
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <nav class="sidebar-nav">
-            <a href="index.html" class="nav-item">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                </svg>
-                <span>Главная</span>
-            </a>
-            <a href="route-builder.html" class="nav-item">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                </svg>
-                <span>Маршруты</span>
-            </a>
-            <a href="checklist.html" class="nav-item">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="9 11 12 14 22 4"></polyline>
-                </svg>
-                <span>Список дел</span>
-            </a>
-            <a href="saved-trips.html" class="nav-item active">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                </svg>
-                <span>Путешествия</span>
-            </a>
-
-            <div class="sidebar-divider"></div>
-
-            <div class="sidebar-user">
-                <div class="sidebar-user-name">Иван Петров</div>
-                <div class="sidebar-user-email">ivan@example.com</div>
-            </div>
-        </nav>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <div class="main-wrapper">
-        <main class="main-content">
-            <!-- PAGE HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">Мои путешествия</h1>
-                <p class="page-subtitle">Каталог всех сохранённых путешествий и маршрутов</p>
-            </div>
-
-            <!-- FILTERS -->
-            <div class="filters">
-                <div class="filter-group">
-                    <label class="filter-label">Статус:</label>
-                    <select class="input">
-                        <option>Все</option>
-                        <option>Планируется</option>
-                        <option>В процессе</option>
-                        <option>Завершено</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label class="filter-label">Сортировка:</label>
-                    <select class="input">
-                        <option>Новые</option>
-                        <option>По дате</option>
-                        <option>По названию</option>
-                    </select>
-                </div>
-                <button class="btn btn--primary btn--sm" style="margin-left: auto;">+ Новое путешествие</button>
-            </div>
-
-            <!-- TRIPS GRID -->
-            <div class="grid">
-                <!-- TRIP CARD 1 -->
-                <div class="card" data-searchable>
-                    <img src="https://via.placeholder.com/320x180" alt="Сицилия" class="card-image">
-                    <div class="card-body">
-                        <h3>Тур по Сицилии</h3>
-                        <div style="margin: var(--space-8) 0;">
-                            <span class="badge badge--info">🗓️ 7-14 июня</span>
-                        </div>
-                        <p style="font-size: var(--font-size-sm); margin-bottom: var(--space-12);">
-                            <strong>5 дней</strong> · <strong>4 участника</strong>
-                        </p>
-                        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Древний город с историческими памятниками и красивыми пляжами.</p>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn--outline btn--sm" onclick="window.location='trip-details.html'">Детали</button>
-                        <button class="btn btn--ghost btn--sm">⋮</button>
-                    </div>
-                </div>
-
-                <!-- TRIP CARD 2 -->
-                <div class="card" data-searchable>
-                    <img src="https://via.placeholder.com/320x180" alt="Япония" class="card-image">
-                    <div class="card-body">
-                        <h3>Весна в Японии</h3>
-                        <div style="margin: var(--space-8) 0;">
-                            <span class="badge badge--success">✅ Завершено</span>
-                        </div>
-                        <p style="font-size: var(--font-size-sm); margin-bottom: var(--space-12);">
-                            <strong>10 дней</strong> · <strong>2 участника</strong>
-                        </p>
-                        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Цветение сакуры и традиционные храмы.</p>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn--outline btn--sm">Детали</button>
-                        <button class="btn btn--ghost btn--sm">⋮</button>
-                    </div>
-                </div>
-
-                <!-- TRIP CARD 3 -->
-                <div class="card" data-searchable>
-                    <img src="https://via.placeholder.com/320x180" alt="Швейцария" class="card-image">
-                    <div class="card-body">
-                        <h3>Альпийские горы</h3>
-                        <div style="margin: var(--space-8) 0;">
-                            <span class="badge badge--warning">⏳ Планируется</span>
-                        </div>
-                        <p style="font-size: var(--font-size-sm); margin-bottom: var(--space-12);">
-                            <strong>5 дней</strong> · <strong>1 участник</strong>
-                        </p>
-                        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Горные вершины и живописные озёра.</p>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn--outline btn--sm">Детали</button>
-                        <button class="btn btn--ghost btn--sm">⋮</button>
-                    </div>
-                </div>
-
-                <!-- TRIP CARD 4 -->
-                <div class="card" data-searchable>
-                    <img src="https://via.placeholder.com/320x180" alt="Таиланд" class="card-image">
-                    <div class="card-body">
-                        <h3>Бали и Таиланд</h3>
-                        <div style="margin: var(--space-8) 0;">
-                            <span class="badge badge--info">🗓️ 20-31 авг</span>
-                        </div>
-                        <p style="font-size: var(--font-size-sm); margin-bottom: var(--space-12);">
-                            <strong>12 дней</strong> · <strong>3 участника</strong>
-                        </p>
-                        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Тропические пляжи и буддийские храмы.</p>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn--outline btn--sm">Детали</button>
-                        <button class="btn btn--ghost btn--sm">⋮</button>
-                    </div>
-                </div>
-
-                <!-- TRIP CARD 5 -->
-                <div class="card" data-searchable>
-                    <img src="https://via.placeholder.com/320x180" alt="Норвегия" class="card-image">
-                    <div class="card-body">
-                        <h3>Северное сияние</h3>
-                        <div style="margin: var(--space-8) 0;">
-                            <span class="badge badge--warning">⏳ Планируется</span>
-                        </div>
-                        <p style="font-size: var(--font-size-sm); margin-bottom: var(--space-12);">
-                            <strong>3 дня</strong> · <strong>2 участника</strong>
-                        </p>
-                        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Норвежская Арктика и северное сияние.</p>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn--outline btn--sm">Детали</button>
-                        <button class="btn btn--ghost btn--sm">⋮</button>
-                    </div>
-                </div>
-
-                <!-- TRIP CARD 6 -->
-                <div class="card" data-searchable>
-                    <img src="https://via.placeholder.com/320x180" alt="Греция" class="card-image">
-                    <div class="card-body">
-                        <h3>Древняя Греция</h3>
-                        <div style="margin: var(--space-8) 0;">
-                            <span class="badge badge--success">✅ Завершено</span>
-                        </div>
-                        <p style="font-size: var(--font-size-sm); margin-bottom: var(--space-12);">
-                            <strong>8 дней</strong> · <strong>5 участников</strong>
-                        </p>
-                        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Афины, Санторини и Крит с красивыми закатами.</p>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn--outline btn--sm">Детали</button>
-                        <button class="btn btn--ghost btn--sm">⋮</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PAGINATION -->
-            <div class="flex justify-center items-center gap-8" style="margin-top: var(--space-32); margin-bottom: var(--space-32);">
-                <button class="btn btn--secondary btn--sm">← Назад</button>
-                <span style="color: var(--color-text-secondary);">Страница 1 из 2</span>
-                <button class="btn btn--primary btn--sm">Далее →</button>
-            </div>
-        </main>
+        <button class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
+</header>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>О приложении</h4>
-                <a href="#">О Travel Planner</a>
-                <a href="#">Свяжитесь с нами</a>
+<aside class="sidebar">
+    <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            </svg>
+            <span>Главная</span>
+        </a>
+        <a href="route-builder.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+            <span>Маршруты</span>
+        </a>
+        <a href="checklist.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 11 12 14 22 4"></polyline>
+            </svg>
+            <span>Список дел</span>
+        </a>
+        <a href="saved-trips.html" class="nav-item active">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                ircle cx="12" cy="12" r="10"></circle>
+            </svg>
+            <span>Путешествия</span>
+        </a>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-user">
+            <div class="sidebar-user-name">Иван Петров</div>
+            <div class="sidebar-user-email">ivan@example.com</div>
+        </div>
+    </nav>
+</aside>
+
+<div class="main-wrapper">
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Мои путешествия</h1>
+            <p class="page-subtitle">Сохранённые и завершённые поездки</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" alt="Италия" class="card-image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h3>Тур по Италии</h3>
+                    <p style="margin: var(--space-8) 0;">📅 Май 2024 · 5 дней</p>
+                    <p style="color: var(--color-text-secondary); margin: 0;">Рим, Флоренция, Венеция</p>
+                    <div style="margin-top: var(--space-12); display: flex; gap: var(--space-8);">
+                        <span class="badge badge--secondary">3 маршрута</span>
+                        <span class="badge badge--secondary">4 друга</span>
+                    </div>
+                </div>
+                <div class="card-footer" style="display: flex; gap: var(--space-8);">
+                    <button class="btn btn--outline btn--sm" style="flex: 1;">Просмотр</button>
+                    <button class="btn btn--primary btn--sm" style="flex: 1;">Редакт.</button>
+                </div>
             </div>
-            <div class="footer-section">
-                <h4>Ресурсы</h4>
-                <a href="#">Блог</a>
-                <a href="#">FAQ</a>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" alt="Таиланд" class="card-image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h3>Отдых в Таиланде</h3>
+                    <p style="margin: var(--space-8) 0;">📅 Июнь 2024 · 7 дней</p>
+                    <p style="color: var(--color-text-secondary); margin: 0;">Бангкок, Паттайя, Острова</p>
+                    <div style="margin-top: var(--space-12); display: flex; gap: var(--space-8);">
+                        <span class="badge badge--secondary">2 маршрута</span>
+                        <span class="badge badge--secondary">2 друга</span>
+                    </div>
+                </div>
+                <div class="card-footer" style="display: flex; gap: var(--space-8);">
+                    <button class="btn btn--outline btn--sm" style="flex: 1;">Просмотр</button>
+                    <button class="btn btn--primary btn--sm" style="flex: 1;">Редакт.</button>
+                </div>
             </div>
-            <div class="footer-section">
-                <h4>Социальные сети</h4>
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" alt="Швейцария" class="card-image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h3>Альпы и озёра</h3>
+                    <p style="margin: var(--space-8) 0;">📅 Август 2024 · 4 дня</p>
+                    <p style="color: var(--color-text-secondary); margin: 0;">Швейцария, озеро Люцерн</p>
+                    <div style="margin-top: var(--space-12); display: flex; gap: var(--space-8);">
+                        <span class="badge badge--secondary">1 маршрут</span>
+                        <span class="badge badge--secondary">0 друзей</span>
+                    </div>
+                </div>
+                <div class="card-footer" style="display: flex; gap: var(--space-8);">
+                    <button class="btn btn--outline btn--sm" style="flex: 1;">Просмотр</button>
+                    <button class="btn btn--primary btn--sm" style="flex: 1;">Редакт.</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" alt="Греция" class="card-image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h3>Греческие острова</h3>
+                    <p style="margin: var(--space-8) 0;">📅 Сентябрь 2024 · 6 дней</p>
+                    <p style="color: var(--color-text-secondary); margin: 0;">Санторини, Крит, Родос</p>
+                    <div style="margin-top: var(--space-12); display: flex; gap: var(--space-8);">
+                        <span class="badge badge--secondary">4 маршрута</span>
+                        <span class="badge badge--secondary">5 друзей</span>
+                    </div>
+                </div>
+                <div class="card-footer" style="display: flex; gap: var(--space-8);">
+                    <button class="btn btn--outline btn--sm" style="flex: 1;">Просмотр</button>
+                    <button class="btn btn--primary btn--sm" style="flex: 1;">Редакт.</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" alt="Норвегия" class="card-image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h3>Северное сияние</h3>
+                    <p style="margin: var(--space-8) 0;">📅 Декабрь 2024 · 3 дня</p>
+                    <p style="color: var(--color-text-secondary); margin: 0;">Норвегия, Финляндия</p>
+                    <div style="margin-top: var(--space-12); display: flex; gap: var(--space-8);">
+                        <span class="badge badge--secondary">2 маршрута</span>
+                        <span class="badge badge--secondary">3 друга</span>
+                    </div>
+                </div>
+                <div class="card-footer" style="display: flex; gap: var(--space-8);">
+                    <button class="btn btn--outline btn--sm" style="flex: 1;">Просмотр</button>
+                    <button class="btn btn--primary btn--sm" style="flex: 1;">Редакт.</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" alt="Новое путешествие" class="card-image" style="height: 200px; object-fit: cover; background: linear-gradient(135deg, #E3F2FD 0%, #B2EBF2 100%); display: flex; align-items: center; justify-content: center; font-size: 48px;">+</div>
+            <div class="card-body">
+                <h3>Новое путешествие</h3>
+                <p style="margin: var(--space-8) 0;">Создайте новое путешествие</p>
+                <p style="color: var(--color-text-secondary); margin: 0;">Нажмите кнопку ниже, чтобы начать</p>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn--primary btn--full">Создать путешествие</button>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Travel Planner. Все права защищены.</p>
-        </div>
-    </footer>
+</div>
+</main>
 
-    <script src="js/navigation.js"></script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>О приложении</h4>
+            <a href="#">О Trip Builder</a>
+            <a href="#">Свяжитесь с нами</a>
+        </div>
+        <div class="footer-section">
+            <h4>Ресурсы</h4>
+            <a href="#">Блог</a>
+            <a href="#">FAQ</a>
+        </div>
+        <div class="footer-section">
+            <h4>Социальные сети</h4>
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Trip Builder. Все права защищены.</p>
+    </div>
+</footer>
+</div>
+
+<script src="js/navigation.js"></script>
 </body>
 </html>
