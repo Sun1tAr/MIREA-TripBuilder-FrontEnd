@@ -740,19 +740,25 @@ select.form-control {
 /* END PERPLEXITY DESIGN SYSTEM */
 ```css
 :root {
-  /* ===== COLOR PALETTE ===== */
-  /* Primary - mapped to design system teal colors */
+  /* ===== COLOR PALETTE - Mapped to Perplexity Design System ===== */
+  
+  /* Primary: Using Perplexity teal palette */
   --color-primary: var(--color-teal-500);
   --color-primary-dark: var(--color-teal-700);
-  --color-primary-light: var(--color-teal-300);
-  --color-primary-lighter: rgba(var(--color-teal-300-rgb), 0.2);
+  --color-primary-light: var(--color-teal-400);
+  --color-primary-lighter: var(--color-teal-300);
 
-  /* Accent - mapped to design system orange colors */
+  /* Accent: Warm colors from design system */
   --color-accent: var(--color-orange-500);
   --color-accent-light: var(--color-orange-400);
-  --color-accent-lighter: rgba(var(--color-orange-400-rgb), 0.2);
+  --color-accent-lighter: rgba(var(--color-orange-400-rgb), 0.3);
 
-  /* Neutral - mapped to design system semantic colors */
+  /* Secondary: Teal variations */
+  --color-secondary: var(--color-teal-400);
+  --color-secondary-light: var(--color-teal-300);
+  --color-secondary-lighter: rgba(var(--color-teal-300-rgb), 0.2);
+
+  /* Neutral: Design system background and text colors */
   --color-bg-primary: var(--color-background);
   --color-bg-secondary: var(--color-surface);
   --color-text-primary: var(--color-text);
@@ -761,7 +767,12 @@ select.form-control {
   --color-border: var(--color-border);
   --color-border-light: var(--color-card-border);
 
-  /* Status Colors - mapped to design system status colors */
+  /* Priority Colors */
+  --color-priority-high: var(--color-red-500);
+  --color-priority-medium: var(--color-orange-500);
+  --color-priority-low: var(--color-slate-500);
+
+  /* Status Colors - Using design system semantic colors */
   --color-success: var(--color-success);
   --color-success-light: rgba(var(--color-success-rgb), 0.15);
   --color-warning: var(--color-warning);
@@ -771,11 +782,12 @@ select.form-control {
   --color-info: var(--color-info);
   --color-info-light: rgba(var(--color-info-rgb), 0.15);
 
-  /* Gradients - updated to use design system colors */
+  /* Gradients - Using design system colors */
   --gradient-primary: linear-gradient(135deg, var(--color-teal-500) 0%, var(--color-teal-700) 100%);
   --gradient-accent: linear-gradient(135deg, var(--color-orange-500) 0%, var(--color-orange-500) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--color-teal-400) 0%, var(--color-teal-600) 100%);
 
-  /* ===== TYPOGRAPHY ===== */
+  /* ===== TYPOGRAPHY - Aligned with Design System ===== */
   --font-family-base: var(--font-family-base);
   --font-family-mono: var(--font-family-mono);
 
@@ -788,7 +800,7 @@ select.form-control {
   --font-size-3xl: var(--font-size-3xl);
   --font-size-4xl: var(--font-size-4xl);
 
-  --font-weight-light: var(--font-weight-normal);
+  --font-weight-light: 300;
   --font-weight-normal: var(--font-weight-normal);
   --font-weight-medium: var(--font-weight-medium);
   --font-weight-semibold: var(--font-weight-semibold);
@@ -798,7 +810,7 @@ select.form-control {
   --line-height-normal: var(--line-height-normal);
   --line-height-relaxed: 1.75;
 
-  /* ===== SPACING ===== */
+  /* ===== SPACING - Using Design System Values ===== */
   --space-2: var(--space-2);
   --space-4: var(--space-4);
   --space-6: var(--space-6);
@@ -812,7 +824,7 @@ select.form-control {
   --space-36: 36px;
   --space-40: 40px;
 
-  /* ===== BORDER RADIUS ===== */
+  /* ===== BORDER RADIUS - Using Design System ===== */
   --radius-xs: 2px;
   --radius-sm: var(--radius-sm);
   --radius-base: var(--radius-base);
@@ -821,15 +833,15 @@ select.form-control {
   --radius-xl: 16px;
   --radius-full: var(--radius-full);
 
-  /* ===== SHADOWS ===== */
+  /* ===== SHADOWS - Using Design System ===== */
   --shadow-xs: var(--shadow-xs);
   --shadow-sm: var(--shadow-sm);
   --shadow-base: var(--shadow-md);
   --shadow-md: var(--shadow-md);
   --shadow-lg: var(--shadow-lg);
-  --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.08);
 
-  /* ===== TRANSITIONS ===== */
+  /* ===== TRANSITIONS - Using Design System ===== */
   --transition-fast: var(--duration-fast) var(--ease-standard);
   --transition-normal: var(--duration-normal) var(--ease-standard);
   --transition-slow: 350ms var(--ease-standard);
@@ -839,70 +851,105 @@ select.form-control {
   --sidebar-width-tablet: 200px;
   --header-height: 70px;
   --footer-height: 100px;
-  --container-max-width: 1200px;
+  --container-max-width: var(--container-xl);
 }
 
-/* Dark mode overrides */
+/* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Primary colors adjust for dark mode */
+    /* Primary colors adjust automatically through design system */
     --color-primary: var(--color-teal-300);
-    --color-primary-dark: var(--color-teal-800);
-    --color-primary-light: var(--color-teal-400);
-    --color-primary-lighter: rgba(var(--color-teal-300-rgb), 0.2);
+    --color-primary-dark: var(--color-teal-400);
+    --color-primary-light: var(--color-teal-300);
+    --color-primary-lighter: rgba(var(--color-teal-300-rgb), 0.3);
 
-    /* Accent colors adjust for dark mode */
+    /* Accent colors */
     --color-accent: var(--color-orange-400);
-    --color-accent-light: var(--color-orange-400);
-    --color-accent-lighter: rgba(var(--color-orange-400-rgb), 0.2);
+    --color-accent-light: rgba(var(--color-orange-400-rgb), 0.8);
+    --color-accent-lighter: rgba(var(--color-orange-400-rgb), 0.3);
 
-    /* Text tertiary adjustment */
+    /* Secondary colors */
+    --color-secondary: var(--color-teal-300);
+    --color-secondary-light: rgba(var(--color-teal-300-rgb), 0.8);
+    --color-secondary-lighter: rgba(var(--color-teal-300-rgb), 0.2);
+
+    /* Neutral colors */
     --color-text-tertiary: rgba(var(--color-gray-300-rgb), 0.5);
+    
+    /* Gradients for dark mode */
+    --gradient-primary: linear-gradient(135deg, var(--color-teal-300) 0%, var(--color-teal-400) 100%);
+    --gradient-accent: linear-gradient(135deg, var(--color-orange-400) 0%, var(--color-orange-400) 100%);
+    --gradient-secondary: linear-gradient(135deg, var(--color-teal-300) 0%, var(--color-teal-400) 100%);
   }
 }
 
-/* Manual theme switching */
+/* Manual theme switching support */
 [data-color-scheme="dark"] {
-  /* Primary colors adjust for dark mode */
+  /* Primary colors */
   --color-primary: var(--color-teal-300);
-  --color-primary-dark: var(--color-teal-800);
-  --color-primary-light: var(--color-teal-400);
-  --color-primary-lighter: rgba(var(--color-teal-300-rgb), 0.2);
+  --color-primary-dark: var(--color-teal-400);
+  --color-primary-light: var(--color-teal-300);
+  --color-primary-lighter: rgba(var(--color-teal-300-rgb), 0.3);
 
-  /* Accent colors adjust for dark mode */
+  /* Accent colors */
   --color-accent: var(--color-orange-400);
-  --color-accent-light: var(--color-orange-400);
-  --color-accent-lighter: rgba(var(--color-orange-400-rgb), 0.2);
+  --color-accent-light: rgba(var(--color-orange-400-rgb), 0.8);
+  --color-accent-lighter: rgba(var(--color-orange-400-rgb), 0.3);
 
-  /* Text tertiary adjustment */
+  /* Secondary colors */
+  --color-secondary: var(--color-teal-300);
+  --color-secondary-light: rgba(var(--color-teal-300-rgb), 0.8);
+  --color-secondary-lighter: rgba(var(--color-teal-300-rgb), 0.2);
+
+  /* Neutral colors */
   --color-text-tertiary: rgba(var(--color-gray-300-rgb), 0.5);
+  
+  /* Gradients for dark mode */
+  --gradient-primary: linear-gradient(135deg, var(--color-teal-300) 0%, var(--color-teal-400) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--color-orange-400) 0%, var(--color-orange-400) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--color-teal-300) 0%, var(--color-teal-400) 100%);
 }
 
 [data-color-scheme="light"] {
-  /* Primary colors for light mode */
+  /* Explicit light mode values */
   --color-primary: var(--color-teal-500);
   --color-primary-dark: var(--color-teal-700);
-  --color-primary-light: var(--color-teal-300);
-  --color-primary-lighter: rgba(var(--color-teal-300-rgb), 0.2);
+  --color-primary-light: var(--color-teal-400);
+  --color-primary-lighter: var(--color-teal-300);
 
-  /* Accent colors for light mode */
+  /* Accent colors */
   --color-accent: var(--color-orange-500);
   --color-accent-light: var(--color-orange-400);
-  --color-accent-lighter: rgba(var(--color-orange-400-rgb), 0.2);
+  --color-accent-lighter: rgba(var(--color-orange-400-rgb), 0.3);
 
-  /* Text tertiary for light mode */
+  /* Secondary colors */
+  --color-secondary: var(--color-teal-400);
+  --color-secondary-light: var(--color-teal-300);
+  --color-secondary-lighter: rgba(var(--color-teal-300-rgb), 0.2);
+
+  /* Neutral colors */
   --color-text-tertiary: rgba(var(--color-slate-500-rgb), 0.5);
+  
+  /* Gradients for light mode */
+  --gradient-primary: linear-gradient(135deg, var(--color-teal-500) 0%, var(--color-teal-700) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--color-orange-500) 0%, var(--color-orange-500) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--color-teal-400) 0%, var(--color-teal-600) 100%);
 }
 
-/* Responsive adjustments for mobile portrait */
+/* Mobile responsive adjustments */
 @media (max-width: 480px) {
   :root {
-    /* Adjust header and sidebar for mobile */
-    --header-height: 60px;
+    /* Adjust layout for mobile portrait */
     --sidebar-width: 100%;
     --sidebar-width-tablet: 100%;
+    --header-height: 60px;
+    --footer-height: 80px;
     
-    /* Reduce spacing on mobile */
+    /* Slightly smaller font sizes for mobile */
+    --font-size-3xl: 22px;
+    --font-size-4xl: 26px;
+    
+    /* Reduce spacing slightly for mobile */
     --space-28: 20px;
     --space-32: 24px;
     --space-36: 28px;

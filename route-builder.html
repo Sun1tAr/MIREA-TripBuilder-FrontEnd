@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Конструктор маршрута - Travel Planner</title>
+    <title>Конструктор маршрута - TripBuilder</title>
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/variables.css">
@@ -20,15 +20,35 @@
         }
 
         .map-preview {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #E3F2FD 0%, #B3E5FC 100%);
             border-radius: var(--radius-lg);
             height: 400px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             font-size: var(--font-size-lg);
             color: var(--color-text-secondary);
             border: 2px dashed var(--color-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-route-line {
+            position: absolute;
+            width: 2px;
+            height: 60%;
+            background: var(--color-primary);
+            opacity: 0.5;
+        }
+
+        .map-point {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            border: 2px solid white;
         }
 
         .waypoint-item {
@@ -81,6 +101,25 @@
             gap: var(--space-12);
         }
 
+        .divider-section {
+            padding: var(--space-16) 0;
+            border-top: 2px solid var(--color-border);
+            border-bottom: 2px solid var(--color-border);
+            margin: var(--space-16) 0;
+        }
+
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-8);
+            padding: var(--space-8) var(--space-12);
+            background: var(--color-info-light);
+            color: var(--color-info);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            margin-top: var(--space-12);
+        }
+
         @media (max-width: 1024px) {
             .route-container {
                 grid-template-columns: 1fr;
@@ -102,7 +141,7 @@
         <div class="header-content">
             <a href="index.html" class="header-logo">
                 <span>✈️</span>
-                <span class="header-logo-text">Travel Planner</span>
+                <span class="header-logo-text">TripBuilder</span>
             </a>
 
             <div class="header-search">
@@ -175,7 +214,7 @@
             <!-- PAGE HEADER -->
             <div class="page-header">
                 <h1 class="page-title">Конструктор маршрута</h1>
-                <p class="page-subtitle">Создайте оптимальный маршрут путешествия, добавляя точки и устанавливая порядок</p>
+                <p class="page-subtitle">Создайте оптимальный маршрут путешествия</p>
             </div>
 
             <div class="route-container">
@@ -192,8 +231,18 @@
                                 <input type="text" id="route-name" class="input" placeholder="Например: Тур по Европе" required>
                             </div>
 
-                            <!-- Trip Duration -->
-                            <div class="form-row">
+                            <!-- ONE-DAY TRIP TOGGLE -->
+                            <div class="form-group">
+                                <div style="display: flex; align-items: center; gap: var(--space-12);">
+                                    <label for="one-day-trip" style="margin: 0; cursor: pointer; font-weight: var(--font-weight-medium);">
+                                        Однодневный маршрут
+                                    </label>
+                                    <input type="checkbox" id="one-day-trip" class="toggle-checkbox">
+                                </div>
+                            </div>
+
+                            <!-- TRIP DATES (Hidden for one-day trips) -->
+                            <div id="multi-day-dates" class="form-row">
                                 <div class="form-group">
                                     <label for="start-date" class="input-label">Дата начала</label>
                                     <input type="date" id="start-date" class="input" required>
@@ -204,16 +253,59 @@
                                 </div>
                             </div>
 
+                            <!-- ONE-DAY TRIP INPUTS -->
+                            <div id="one-day-inputs" class="form-row" style="display: none;">
+                                <div class="form-group">
+                                    <label for="trip-date" class="input-label">Дата</label>
+                                    <input type="date" id="trip-date" class="input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="start-time" class="input-label">Время старта</label>
+                                    <input type="time" id="start-time" class="input" required>
+                                </div>
+                            </div>
+
                             <!-- Description -->
                             <div class="form-group">
                                 <label for="route-desc" class="input-label">Описание</label>
                                 <textarea id="route-desc" class="input" placeholder="Добавьте описание маршрута..." rows="3"></textarea>
                             </div>
 
+                            <div class="divider-section">
+                                <h4 style="margin: 0 0 var(--space-8) 0;">Дополнительные опции</h4>
+                            </div>
+
+                            <!-- ATTACHED CHECKLIST -->
+                            <div class="form-group">
+                                <label for="attach-checklist" class="input-label">Прикрепить список дел</label>
+                                <select id="attach-checklist" class="input">
+                                    <option selected>Нет</option>
+                                    <option>Перед путешествием</option>
+                                    <option>Во время путешествия</option>
+                                    <option>После путешествия</option>
+                                </select>
+                                <small style="color: var(--color-text-secondary); margin-top: var(--space-4); display: block;">
+                                    Список дел можно создать или отредактировать отдельно
+                                </small>
+                            </div>
+
+                            <!-- PRIVACY & SHARE -->
+                            <div class="form-group">
+                                <div style="display: flex; align-items: center; gap: var(--space-12); margin-bottom: var(--space-12);">
+                                    <label for="public-route" style="margin: 0; cursor: pointer; font-weight: var(--font-weight-medium);">
+                                        Сделать маршрут общедоступным
+                                    </label>
+                                    <input type="checkbox" id="public-route">
+                                </div>
+                                <small style="color: var(--color-text-secondary);">
+                                    Когда маршрут общедоступный, другие пользователи смогут видеть его на главной странице
+                                </small>
+                            </div>
+
                             <hr>
 
-                            <!-- Add Waypoint Section -->
-                            <h4 style="margin-bottom: var(--space-16);">Добавить точку маршрута</h4>
+                            <!-- ADD WAYPOINT SECTION -->
+                            <h4 style="margin-bottom: var(--space-16); margin-top: var(--space-16);">Добавить точку маршрута</h4>
 
                             <div class="form-group">
                                 <label for="waypoint-city" class="input-label">Город/Место</label>
@@ -231,9 +323,14 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="waypoint-duration" class="input-label">Длительность (дней)</label>
-                                <input type="number" id="waypoint-duration" class="input" placeholder="2" min="1" value="1">
+                            <!-- Duration input that changes based on trip type -->
+                            <div id="waypoint-duration-day" class="form-group" style="display: none;">
+                                <label for="waypoint-duration-time" class="input-label">Длительность (ЧЧ:МММ)</label>
+                                <input type="time" id="waypoint-duration-time" class="input">
+                            </div>
+                            <div id="waypoint-duration-multi" class="form-group">
+                                <label for="waypoint-duration-days" class="input-label">Длительность (дней)</label>
+                                <input type="number" id="waypoint-duration-days" class="input" placeholder="2" min="1" value="1">
                             </div>
 
                             <div class="form-group">
@@ -257,10 +354,14 @@
                             <h3 style="margin: 0;">Карта маршрута</h3>
                         </div>
                         <div class="map-preview" id="map-preview">
-                            <div style="text-align: center;">
-                                <p style="margin: 0;">🗺️</p>
-                                <p>Карта отобразится здесь</p>
+                            <div style="line-height: 1.5;">
+                                <p style="margin: 0; margin-bottom: var(--space-16);">🗺️ Визуализация маршрута</p>
+                                <p style="font-size: var(--font-size-sm);">Точки появятся здесь</p>
                             </div>
+                            <div class="map-route-line"></div>
+                            <div class="map-point" style="top: 20%; left: 30%;"></div>
+                            <div class="map-point" style="top: 50%; left: 50%;"></div>
+                            <div class="map-point" style="top: 80%; left: 70%;"></div>
                         </div>
                     </div>
 
@@ -318,8 +419,13 @@
 
                             <div class="flex gap-8" style="gap: var(--space-12);">
                                 <button class="btn btn--secondary btn--sm" style="flex: 1;">Оптимизировать</button>
-                                <button class="btn btn--primary btn--sm" style="flex: 1;">Сохранить маршрут</button>
+                                <button class="btn btn--accent btn--sm" style="flex: 1;">Сохранить маршрут</button>
                             </div>
+
+                            <!-- SHARE BUTTON (appears if public) -->
+                            <button class="btn btn--secondary btn--full" style="margin-top: var(--space-12); display: none;" id="share-btn">
+                                📤 Поделиться маршрутом
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -332,7 +438,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h4>О приложении</h4>
-                <a href="#">О Travel Planner</a>
+                <a href="#">О TripBuilder</a>
                 <a href="#">Свяжитесь с нами</a>
             </div>
             <div class="footer-section">
@@ -347,12 +453,26 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 Travel Planner. Все права защищены.</p>
+            <p>&copy; 2024 TripBuilder. Все права защищены.</p>
         </div>
     </footer>
 
     <script src="js/navigation.js"></script>
     <script>
+        // Toggle between one-day and multi-day trip
+        document.getElementById('one-day-trip').addEventListener('change', function(e) {
+            const isOneDay = e.target.checked;
+            document.getElementById('multi-day-dates').style.display = isOneDay ? 'none' : 'grid';
+            document.getElementById('one-day-inputs').style.display = isOneDay ? 'grid' : 'none';
+            document.getElementById('waypoint-duration-day').style.display = isOneDay ? 'block' : 'none';
+            document.getElementById('waypoint-duration-multi').style.display = isOneDay ? 'none' : 'block';
+        });
+
+        // Show/hide share button
+        document.getElementById('public-route').addEventListener('change', function(e) {
+            document.getElementById('share-btn').style.display = e.target.checked ? 'block' : 'none';
+        });
+
         function addWaypoint() {
             alert('Функция добавления точки будет реализована в React версии');
         }

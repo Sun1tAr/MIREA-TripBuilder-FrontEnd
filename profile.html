@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя - TripBuilder</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        .profile-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: var(--space-32) var(--space-16);
+            text-align: center;
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-20);
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-full);
+            object-fit: cover;
+            border: 4px solid white;
+            margin: 0 auto var(--space-16);
+            display: block;
+        }
+
+        .profile-name {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-4);
+        }
+
+        .profile-email {
+            font-size: var(--font-size-base);
+            opacity: 0.9;
+            margin-bottom: var(--space-16);
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-12);
+            margin-top: var(--space-20);
+        }
+
+        .profile-stat {
+            background: rgba(255, 255, 255, 0.2);
+            padding: var(--space-12);
+            border-radius: var(--radius-md);
+        }
+
+        .profile-stat-number {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .profile-stat-label {
+            font-size: var(--font-size-xs);
+            opacity: 0.9;
+            margin-top: var(--space-4);
+        }
+
+        .settings-section {
+            margin-bottom: var(--space-24);
+        }
+
+        .settings-section h3 {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--space-16);
+            padding-bottom: var(--space-12);
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-16);
+            background: var(--color-bg-primary);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-12);
+        }
+
+        .setting-label {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .setting-label strong {
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .setting-label small {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-xs);
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-20);
+        }
+
+        @media (max-width: 1024px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .profile-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .setting-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-12);
+            }
+
+            .setting-item > div {
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="header-logo">
+                <span>✈️</span>
+                <span class="header-logo-text">TripBuilder</span>
+            </a>
+
+            <div class="header-search">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" placeholder="Поиск...">
+            </div>
+
+            <div class="header-actions">
+                <button class="btn-icon btn--ghost">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    </svg>
+                </button>
+                <div class="header-user">
+                    <img src="https://via.placeholder.com/36" alt="User" class="user-avatar">
+                </div>
+            </div>
+
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg>
+                <span>Главная</span>
+            </a>
+            <a href="route-builder.html" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+                <span>Маршруты</span>
+            </a>
+            <a href="checklist.html" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 11 12 14 22 4"></polyline>
+                </svg>
+                <span>Список дел</span>
+            </a>
+            <a href="saved-trips.html" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                </svg>
+                <span>Путешествия</span>
+            </a>
+
+            <div class="sidebar-divider"></div>
+
+            <div class="sidebar-user">
+                <div class="sidebar-user-name">Иван Петров</div>
+                <div class="sidebar-user-email">ivan@example.com</div>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-wrapper">
+        <main class="main-content">
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <h1 class="page-title">Мой профиль</h1>
+                <p class="page-subtitle">Управление личными данными и настройками</p>
+            </div>
+
+            <!-- PROFILE HEADER -->
+            <div class="profile-header">
+                <img src="https://via.placeholder.com/120" alt="Profile" class="profile-avatar">
+                <div class="profile-name">Иван Петров</div>
+                <div class="profile-email">ivan@example.com</div>
+                <button class="btn btn--secondary">Изменить профиль</button>
+
+                <div class="profile-stats">
+                    <div class="profile-stat">
+                        <div class="profile-stat-number">6</div>
+                        <div class="profile-stat-label">Путешествий</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-number">12</div>
+                        <div class="profile-stat-label">Маршрутов</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-number">4</div>
+                        <div class="profile-stat-label">Друзей</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-grid">
+                <!-- LEFT COLUMN: PERSONAL INFO -->
+                <div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 style="margin: 0;">Личные данные</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="first-name" class="input-label">Имя</label>
+                                <input type="text" id="first-name" class="input" value="Иван">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="last-name" class="input-label">Фамилия</label>
+                                <input type="text" id="last-name" class="input" value="Петров">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="input-label">Email</label>
+                                <input type="email" id="email" class="input" value="ivan@example.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" class="input-label">Телефон</label>
+                                <input type="tel" id="phone" class="input" placeholder="+7 (999) 123-45-67">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="location" class="input-label">Город/Страна</label>
+                                <input type="text" id="location" class="input" placeholder="Москва, Россия">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bio" class="input-label">О себе</label>
+                                <textarea id="bio" class="input" placeholder="Расскажите о себе..."></textarea>
+                            </div>
+
+                            <button class="btn btn--primary btn--full">Сохранить изменения</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: SETTINGS & PRIVACY -->
+                <div>
+                    <!-- PREFERENCES -->
+                    <div class="card" style="margin-bottom: var(--space-20);">
+                        <div class="card-header">
+                            <h3 style="margin: 0;">⚙️ Предпочтения</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="settings-section">
+                                <h3>Уведомления</h3>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <strong>Email уведомления</strong>
+                                        <small>Получайте обновления на почту</small>
+                                    </div>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <strong>Уведомления о новых идеях</strong>
+                                        <small>Получайте рекомендации путешествий</small>
+                                    </div>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                    </div>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <strong>Уведомления о совместных проектах</strong>
+                                        <small>Когда друзья добавляют вас</small>
+                                    </div>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h3>Приватность</h3>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <strong>Видимость профиля</strong>
+                                        <small>Кто может видеть ваш профиль</small>
+                                    </div>
+                                    <select class="input" style="width: 150px;">
+                                        <option>Все пользователи</option>
+                                        <option selected>Только друзья</option>
+                                        <option>Только я</option>
+                                    </select>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <strong>Видимость маршрутов</strong>
+                                        <small>Кто может видеть ваши маршруты</small>
+                                    </div>
+                                    <select class="input" style="width: 150px;">
+                                        <option>Все пользователи</option>
+                                        <option selected>Только друзья</option>
+                                        <option>Только я</option>
+                                    </select>
+                                </div>
+
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <strong>Аналитика использования</strong>
+                                        <small>Помогите улучшить приложение</small>
+                                    </div>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECURITY -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 style="margin: 0;">🔒 Безопасность</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="setting-item" style="margin-bottom: var(--space-12);">
+                                <div class="setting-label">
+                                    <strong>Изменить пароль</strong>
+                                    <small>Обновите пароль для безопасности</small>
+                                </div>
+                                <button class="btn btn--outline btn--sm">Изменить</button>
+                            </div>
+
+                            <div class="setting-item" style="margin-bottom: var(--space-12);">
+                                <div class="setting-label">
+                                    <strong>Двухфакторная аутентификация</strong>
+                                    <small>Дополнительный уровень безопасности</small>
+                                </div>
+                                <div class="toggle-switch">
+                                    <input type="checkbox">
+                                </div>
+                            </div>
+
+                            <hr style="margin: var(--space-16) 0;">
+
+                            <div class="alert alert--warning" style="margin-bottom: var(--space-12);">
+                                <strong>Осторожно!</strong> Следующие действия нельзя отменить:
+                            </div>
+
+                            <button class="btn btn--error btn--full" style="margin-bottom: var(--space-8);">Удалить аккаунт</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>О приложении</h4>
+                <a href="#">О TripBuilder</a>
+                <a href="#">Свяжитесь с нами</a>
+            </div>
+            <div class="footer-section">
+                <h4>Ресурсы</h4>
+                <a href="#">Блог</a>
+                <a href="#">FAQ</a>
+            </div>
+            <div class="footer-section">
+                <h4>Социальные сети</h4>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TripBuilder. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="js/navigation.js"></script>
+</body>
+</html>
