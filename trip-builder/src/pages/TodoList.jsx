@@ -93,6 +93,18 @@ const TodoList = () => {
         }
     };
 
+    const handleClearTrash = () => {
+        if (deletedTasks.length > 0) {
+            const confirmDelete = window.confirm(
+                `Вы уверены? Это удалит ${deletedTasks.length} задач(и) навсегда.`
+            );
+            if (confirmDelete) {
+                setDeletedTasks([]);
+                handlers.onClearTrash();
+            }
+        }
+    };
+
     const columns = [
         { id: 'before', title: 'Перед путешествием', icon: '📋' },
         { id: 'during', title: 'Во время путешествия', icon: '✈️' },
@@ -170,6 +182,12 @@ const TodoList = () => {
                 <div className="todo-trash">
                     <div className="todo-trash-header">
                         <h3 className="todo-trash-title">🗑️ Корзина ({deletedTasks.length})</h3>
+                        <button
+                            onClick={handleClearTrash}
+                            className="todo-clear-trash-btn"
+                        >
+                            🧹 Очистить
+                        </button>
                     </div>
                     <div className="todo-trash-tasks">
                         {deletedTasks.map((task) => (

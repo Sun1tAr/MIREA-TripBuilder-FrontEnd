@@ -8,12 +8,22 @@ const Header = ({ onMenuClick }) => {
     const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = React.useState('');
 
-    const handleSearch = (e) => {
-        const query = e.target.value;
-        setSearchQuery(query);
-        if (query.trim()) {
-            handlers.onSearch(query);
+    const handleSearch = () => {
+        if (searchQuery.trim()) {
+            handlers.onSearch(searchQuery);
+            // Переходим на страницу всех путешествий с поисковым запросом
+            navigate('/');
         }
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    };
+
+    const handleInputChange = (e) => {
+        setSearchQuery(e.target.value);
     };
 
     return (
@@ -24,19 +34,30 @@ const Header = ({ onMenuClick }) => {
                     ☰
                 </button>
                 <Link to="/" className="header-logo">
-                    <span>🧭</span>
+                    <span>🌍</span>
                     <span>Trip Builder</span>
                 </Link>
             </div>
 
             {/* Center: Search */}
-            <input
-                type="text"
-                placeholder="Поиск путешествий..."
-                value={searchQuery}
-                onChange={handleSearch}
-                className="header-search"
-            />
+            <div className="header-search-container">
+                <input
+                    type="text"
+                    placeholder="Поиск путешествий..."
+                    value={searchQuery}
+                    onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
+                    className="header-search"
+                />
+                <button
+                    onClick={handleSearch}
+                    className="header-search-btn"
+                    title="Поиск"
+                    disabled={!searchQuery.trim()}
+                >
+                    🔍
+                </button>
+            </div>
 
             {/* Right: Notifications & Profile */}
             <div className="header-right">

@@ -353,4 +353,27 @@
         padding: 3px 8px;
         font-size: 10px;
     }
+
+
+    .todo-trash-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .todo-clear-trash-btn {
+        padding: 8px 16px;
+        background: linear-gradient(135deg, #E53E3E 0%, #C53030 100%);
+        color: #FFFFFF;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(229, 62, 62, 0.3);
+        white-space: nowrap;
+    }
+
 }
