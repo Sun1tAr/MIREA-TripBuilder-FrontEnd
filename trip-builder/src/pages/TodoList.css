@@ -145,14 +145,16 @@
 
 /* Корзина */
 .todo-trash {
-    background-color: #FFFFFF;
+    background-color: #FEF2F2;
     border-radius: 12px;
     border: 2px solid #FED7D7;
     padding: 16px;
-    background-color: #FEF2F2;
 }
 
 .todo-trash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 12px;
 }
 
@@ -205,6 +207,35 @@
     border-color: #3182CE;
 }
 
+/* Кнопка очистить корзину */
+.todo-clear-trash-btn {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #E53E3E 0%, #C53030 100%);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(229, 62, 62, 0.3);
+    white-space: nowrap;
+}
+
+.todo-clear-trash-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.4);
+}
+
+.todo-clear-trash-btn:active {
+    transform: translateY(0);
+}
+
+.todo-clear-trash-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 /* Скролл стилизация */
 .todo-column-tasks::-webkit-scrollbar {
     width: 6px;
@@ -246,10 +277,7 @@
         padding: 12px;
     }
 
-    .todo-column-select {
-        min-width: 100%;
-    }
-
+    .todo-column-select,
     .todo-input {
         min-width: 100%;
     }
@@ -270,8 +298,20 @@
         padding: 12px;
     }
 
+    .todo-trash-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
     .todo-trash-title {
         font-size: 13px;
+    }
+
+    .todo-clear-trash-btn {
+        align-self: flex-end;
+        padding: 6px 12px;
+        font-size: 12px;
     }
 
     .todo-trash-task {
@@ -344,6 +384,18 @@
         padding: 8px;
     }
 
+    .todo-trash-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .todo-clear-trash-btn {
+        align-self: flex-end;
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+
     .todo-trash-task {
         padding: 6px;
         font-size: 11px;
@@ -353,27 +405,4 @@
         padding: 3px 8px;
         font-size: 10px;
     }
-
-
-    .todo-trash-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 12px;
-    }
-
-    .todo-clear-trash-btn {
-        padding: 8px 16px;
-        background: linear-gradient(135deg, #E53E3E 0%, #C53030 100%);
-        color: #FFFFFF;
-        border: none;
-        border-radius: 6px;
-        font-weight: 600;
-        font-size: 13px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 8px rgba(229, 62, 62, 0.3);
-        white-space: nowrap;
-    }
-
 }

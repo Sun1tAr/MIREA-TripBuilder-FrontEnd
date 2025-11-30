@@ -181,10 +181,13 @@ const TodoList = () => {
             {deletedTasks.length > 0 && (
                 <div className="todo-trash">
                     <div className="todo-trash-header">
-                        <h3 className="todo-trash-title">🗑️ Корзина ({deletedTasks.length})</h3>
+                        <h3 className="todo-trash-title">
+                            🗑️ Корзина ({deletedTasks.length})
+                        </h3>
                         <button
                             onClick={handleClearTrash}
                             className="todo-clear-trash-btn"
+                            disabled={deletedTasks.length === 0}
                         >
                             🧹 Очистить
                         </button>
