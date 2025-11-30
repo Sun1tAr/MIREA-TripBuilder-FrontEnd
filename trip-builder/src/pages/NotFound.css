@@ -1,0 +1,286 @@
+/* src/pages/NotFound.css */
+
+.not-found {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* Контент */
+.not-found-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 500px;
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Иконка */
+.not-found-icon {
+    font-size: 120px;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Код ошибки */
+.not-found-code {
+    font-size: 96px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #3182CE 0%, #38B2AC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    letter-spacing: 8px;
+}
+
+/* Заголовок */
+.not-found-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2D3748;
+    margin: 0 0 12px 0;
+}
+
+/* Описание */
+.not-found-description {
+    font-size: 15px;
+    color: #718096;
+    margin: 0 0 12px 0;
+    line-height: 1.6;
+}
+
+/* Подсказка */
+.not-found-hint {
+    font-size: 13px;
+    color: #A0AEC0;
+    margin: 0 0 24px 0;
+    padding: 12px;
+    background-color: #F7FAFC;
+    border-radius: 8px;
+    border-left: 3px solid #38B2AC;
+}
+
+/* Кнопки */
+.not-found-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.not-found-btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.not-found-btn--primary {
+    background-color: #3182CE;
+    color: #FFFFFF;
+}
+
+.not-found-btn--primary:hover {
+    background-color: #2C5AA0;
+    box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+    transform: translateY(-2px);
+}
+
+.not-found-btn--secondary {
+    background-color: #38B2AC;
+    color: #FFFFFF;
+}
+
+.not-found-btn--secondary:hover {
+    background-color: #2D9E96;
+    box-shadow: 0 4px 12px rgba(56, 178, 172, 0.3);
+    transform: translateY(-2px);
+}
+
+.not-found-btn--outline {
+    background-color: transparent;
+    color: #718096;
+    border: 1px solid #CBD5E0;
+}
+
+.not-found-btn--outline:hover {
+    background-color: #F7FAFC;
+    border-color: #A0AEC0;
+    color: #2D3748;
+}
+
+/* Декоративные элементы */
+.not-found-decoration {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    opacity: 0.05;
+    font-size: 120px;
+    pointer-events: none;
+}
+
+.not-found-decoration-item {
+    animation: float 6s ease-in-out infinite;
+}
+
+.not-found-decoration-item:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.not-found-decoration-item:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.not-found-decoration-item:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.not-found-decoration-item:nth-child(4) {
+    animation-delay: 1.5s;
+}
+
+.not-found-decoration-item:nth-child(5) {
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-30px);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .not-found {
+        min-height: 70vh;
+        padding: 16px;
+    }
+
+    .not-found-content {
+        max-width: 100%;
+    }
+
+    .not-found-icon {
+        font-size: 80px;
+        margin-bottom: 16px;
+    }
+
+    .not-found-code {
+        font-size: 64px;
+        letter-spacing: 4px;
+        margin-bottom: 8px;
+    }
+
+    .not-found-title {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .not-found-description {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .not-found-hint {
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .not-found-actions {
+        gap: 8px;
+    }
+
+    .not-found-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+
+    .not-found-decoration {
+        font-size: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .not-found {
+        min-height: 60vh;
+        padding: 12px;
+    }
+
+    .not-found-icon {
+        font-size: 60px;
+        margin-bottom: 12px;
+    }
+
+    .not-found-code {
+        font-size: 48px;
+        letter-spacing: 2px;
+    }
+
+    .not-found-title {
+        font-size: 20px;
+    }
+
+    .not-found-description {
+        font-size: 13px;
+    }
+
+    .not-found-hint {
+        font-size: 11px;
+        padding: 8px;
+        margin-bottom: 16px;
+    }
+
+    .not-found-actions {
+        gap: 6px;
+    }
+
+    .not-found-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .not-found-decoration {
+        font-size: 60px;
+    }
+
+    .not-found-decoration-item {
+        display: none;
+    }
+}

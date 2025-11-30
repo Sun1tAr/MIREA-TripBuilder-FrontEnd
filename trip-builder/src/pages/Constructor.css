@@ -1,0 +1,277 @@
+/* src/pages/Constructor.css */
+
+.constructor {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* Заголовок */
+.constructor-header {
+    margin-bottom: 30px;
+}
+
+.constructor-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2D3748;
+    margin: 0 0 8px 0;
+}
+
+.constructor-subtitle {
+    font-size: 15px;
+    color: #718096;
+    margin: 0;
+}
+
+/* Основная сетка */
+.constructor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* Левая колонка */
+.constructor-left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Секция */
+.constructor-section {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #E2E8F0;
+}
+
+.constructor-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.constructor-section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2D3748;
+    margin: 0;
+}
+
+/* Форма */
+.constructor-form-group {
+    margin-bottom: 16px;
+}
+
+.constructor-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.constructor-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #2D3748;
+    margin-bottom: 6px;
+}
+
+.constructor-input,
+.constructor-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #CBD5E0;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s ease;
+    background-color: #FFFFFF;
+}
+
+.constructor-input:focus,
+.constructor-textarea:focus {
+    border-color: #3182CE;
+    box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.1);
+}
+
+.constructor-input::placeholder,
+.constructor-textarea::placeholder {
+    color: #A0AEC0;
+}
+
+.constructor-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Чекбокс */
+.constructor-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #2D3748;
+    user-select: none;
+}
+
+.constructor-checkbox input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #3182CE;
+}
+
+/* Кнопка добавления точки */
+.constructor-btn-add-waypoint {
+    padding: 8px 16px;
+    background-color: #38B2AC;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.constructor-btn-add-waypoint:hover {
+    background-color: #2D9E96;
+    box-shadow: 0 2px 4px rgba(56, 178, 172, 0.2);
+}
+
+/* Кнопки действий */
+.constructor-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.constructor-btn-create,
+.constructor-btn-cancel {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.constructor-btn-create {
+    background-color: #3182CE;
+    color: #FFFFFF;
+}
+
+.constructor-btn-create:hover {
+    background-color: #2C5AA0;
+    box-shadow: 0 4px 6px rgba(49, 130, 206, 0.2);
+}
+
+.constructor-btn-cancel {
+    background-color: #E2E8F0;
+    color: #2D3748;
+}
+
+.constructor-btn-cancel:hover {
+    background-color: #CBD5E0;
+}
+
+/* Правая колонка */
+.constructor-right {
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .constructor-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .constructor-right {
+        position: static;
+    }
+
+    .constructor-form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .constructor {
+        padding: 0;
+    }
+
+    .constructor-title {
+        font-size: 24px;
+    }
+
+    .constructor-section {
+        padding: 16px;
+    }
+
+    .constructor-form-group {
+        margin-bottom: 12px;
+    }
+
+    .constructor-label {
+        font-size: 12px;
+    }
+
+    .constructor-input,
+    .constructor-textarea {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .constructor-actions {
+        flex-direction: column;
+    }
+
+    .constructor-btn-create,
+    .constructor-btn-cancel {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .constructor-title {
+        font-size: 20px;
+    }
+
+    .constructor-section {
+        padding: 12px;
+    }
+
+    .constructor-section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .constructor-btn-add-waypoint {
+        width: 100%;
+    }
+
+    .constructor-form-group {
+        margin-bottom: 10px;
+    }
+
+    .constructor-input,
+    .constructor-textarea {
+        font-size: 11px;
+        padding: 6px;
+    }
+
+    .constructor-textarea {
+        min-height: 80px;
+    }
+}

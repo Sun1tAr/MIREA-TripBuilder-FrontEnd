@@ -1,0 +1,144 @@
+/* src/components/Trip/MapPreview.css */
+
+.map-preview {
+    background-color: #F7FAFC;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.map-preview-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.map-preview-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2D3748;
+    margin: 0 0 8px 0;
+}
+
+.map-preview-description {
+    font-size: 13px;
+    color: #718096;
+    margin: 0 0 24px 0;
+    max-width: 420px;
+}
+
+/* Список точек */
+.map-preview-waypoints {
+    width: 100%;
+    max-width: 420px;
+}
+
+.map-preview-item {
+    margin-bottom: 12px;
+    padding: 10px;
+    background-color: #FFFFFF;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #E2E8F0;
+    transition: all 0.2s ease;
+}
+
+.map-preview-item:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    border-color: #CBD5E0;
+}
+
+.map-preview-item-number {
+    width: 24px;
+    height: 24px;
+    background-color: #3182CE;
+    color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.map-preview-item-content {
+    text-align: left;
+    flex: 1;
+}
+
+.map-preview-item-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #2D3748;
+}
+
+.map-preview-item-coords {
+    font-size: 11px;
+    color: #718096;
+    margin-top: 2px;
+}
+
+.map-preview-item-duration {
+    font-size: 11px;
+    color: #718096;
+    margin-top: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .map-preview {
+        min-height: 400px;
+        padding: 16px;
+    }
+
+    .map-preview-icon {
+        font-size: 40px;
+        margin-bottom: 12px;
+    }
+
+    .map-preview-title {
+        font-size: 14px;
+    }
+
+    .map-preview-description {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .map-preview {
+        min-height: 300px;
+        padding: 12px;
+    }
+
+    .map-preview-icon {
+        font-size: 32px;
+    }
+
+    .map-preview-item {
+        padding: 8px;
+    }
+
+    .map-preview-item-number {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+    }
+
+    .map-preview-item-title {
+        font-size: 12px;
+    }
+
+    .map-preview-item-coords,
+    .map-preview-item-duration {
+        font-size: 10px;
+    }
+}

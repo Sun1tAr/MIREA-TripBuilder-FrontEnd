@@ -1,0 +1,356 @@
+/* src/pages/TodoList.css */
+
+.todo-list {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* Заголовок */
+.todo-header {
+    margin-bottom: 30px;
+}
+
+.todo-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2D3748;
+    margin: 0 0 8px 0;
+}
+
+.todo-subtitle {
+    font-size: 15px;
+    color: #718096;
+    margin: 0;
+}
+
+/* Добавление задачи */
+.todo-add-task {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+    padding: 16px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.todo-column-select,
+.todo-input {
+    padding: 10px;
+    border: 1px solid #CBD5E0;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.todo-column-select {
+    min-width: 180px;
+    background-color: #FFFFFF;
+}
+
+.todo-input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.todo-column-select:focus,
+.todo-input:focus {
+    border-color: #3182CE;
+    box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.1);
+}
+
+.todo-add-btn {
+    padding: 10px 20px;
+    background-color: #38B2AC;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.todo-add-btn:hover {
+    background-color: #2D9E96;
+    box-shadow: 0 2px 4px rgba(56, 178, 172, 0.2);
+}
+
+/* Три колонки */
+.todo-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.todo-column {
+    background-color: #F7FAFC;
+    border-radius: 12px;
+    border: 1px solid #E2E8F0;
+    overflow: hidden;
+}
+
+/* Заголовок колонки */
+.todo-column-header {
+    padding: 16px;
+    background-color: #FFFFFF;
+    border-bottom: 2px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.todo-column-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2D3748;
+    margin: 0;
+}
+
+.todo-column-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: #3182CE;
+    color: #FFFFFF;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Задачи в колонке */
+.todo-column-tasks {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.todo-column-empty {
+    padding: 40px 16px;
+    text-align: center;
+    color: #A0AEC0;
+    font-size: 13px;
+}
+
+/* Корзина */
+.todo-trash {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    border: 2px solid #FED7D7;
+    padding: 16px;
+    background-color: #FEF2F2;
+}
+
+.todo-trash-header {
+    margin-bottom: 12px;
+}
+
+.todo-trash-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #E53E3E;
+    margin: 0;
+}
+
+.todo-trash-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.todo-trash-task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #FFFFFF;
+    border-radius: 6px;
+    border: 1px solid #FED7D7;
+}
+
+.todo-trash-task-title {
+    font-size: 12px;
+    color: #718096;
+    text-decoration: line-through;
+    flex: 1;
+    word-break: break-word;
+}
+
+.todo-restore-btn {
+    padding: 4px 10px;
+    background-color: transparent;
+    color: #3182CE;
+    border: 1px solid #BEE3F8;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.todo-restore-btn:hover {
+    background-color: #EBF8FF;
+    border-color: #3182CE;
+}
+
+/* Скролл стилизация */
+.todo-column-tasks::-webkit-scrollbar {
+    width: 6px;
+}
+
+.todo-column-tasks::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.todo-column-tasks::-webkit-scrollbar-thumb {
+    background: #CBD5E0;
+    border-radius: 3px;
+}
+
+.todo-column-tasks::-webkit-scrollbar-thumb:hover {
+    background: #A0AEC0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .todo-columns {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .todo-list {
+        padding: 0;
+    }
+
+    .todo-title {
+        font-size: 24px;
+    }
+
+    .todo-add-task {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .todo-column-select {
+        min-width: 100%;
+    }
+
+    .todo-input {
+        min-width: 100%;
+    }
+
+    .todo-add-btn {
+        width: 100%;
+    }
+
+    .todo-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .todo-column-tasks {
+        max-height: 400px;
+    }
+
+    .todo-trash {
+        padding: 12px;
+    }
+
+    .todo-trash-title {
+        font-size: 13px;
+    }
+
+    .todo-trash-task {
+        padding: 8px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .todo-restore-btn {
+        width: 100%;
+        margin-top: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .todo-title {
+        font-size: 20px;
+    }
+
+    .todo-subtitle {
+        font-size: 13px;
+    }
+
+    .todo-add-task {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .todo-column-select,
+    .todo-input,
+    .todo-add-btn {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .todo-column-select {
+        min-width: auto;
+    }
+
+    .todo-columns {
+        gap: 12px;
+    }
+
+    .todo-column-header {
+        padding: 12px;
+    }
+
+    .todo-column-title {
+        font-size: 14px;
+    }
+
+    .todo-column-count {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+    }
+
+    .todo-column-tasks {
+        padding: 8px;
+        gap: 6px;
+        max-height: 300px;
+    }
+
+    .todo-column-empty {
+        padding: 30px 12px;
+        font-size: 12px;
+    }
+
+    .todo-trash {
+        padding: 8px;
+    }
+
+    .todo-trash-task {
+        padding: 6px;
+        font-size: 11px;
+    }
+
+    .todo-restore-btn {
+        padding: 3px 8px;
+        font-size: 10px;
+    }
+}

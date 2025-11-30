@@ -1,0 +1,151 @@
+/* src/components/Layout/Header.css */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.95);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Left Section */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-menu-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #2D3748;
+    transition: color 0.2s ease;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.header-menu-btn:hover {
+    color: #ED8936;
+    background-color: rgba(237, 137, 54, 0.1);
+}
+
+.header-logo {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #3182CE;
+    font-weight: bold;
+    font-size: 18px;
+    transition: opacity 0.2s ease;
+}
+
+.header-logo:hover {
+    opacity: 0.8;
+}
+
+/* Center: Search */
+.header-search {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #E2E8F0;
+    width: 300px;
+    font-size: 14px;
+    background-color: #F7FAFC;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+    font-family: inherit;
+}
+
+.header-search:focus {
+    border-color: #3182CE;
+    box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.1);
+}
+
+.header-search::placeholder {
+    color: #A0AEC0;
+}
+
+/* Right Section */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #2D3748;
+    font-size: 20px;
+    transition: transform 0.2s ease, color 0.2s ease;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.header-icon-btn:hover {
+    color: #ED8936;
+    background-color: rgba(237, 137, 54, 0.1);
+    transform: scale(1.1);
+}
+
+.header-icon-btn:active {
+    transform: scale(0.95);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .header-search {
+        width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 0 12px;
+    }
+
+    .header-search {
+        width: 150px;
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .header-logo span:last-child {
+        display: none;
+    }
+
+    .header-left {
+        gap: 12px;
+    }
+
+    .header-right {
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 0 8px;
+    }
+
+    .header-search {
+        display: none;
+    }
+
+    .header-logo span:first-child {
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,83 @@
+/* src/components/Layout/Footer.css */
+
+.footer {
+    background-color: #1A202C;
+    color: #E2E8F0;
+    padding: 40px 20px;
+    margin-top: auto;
+    transition: margin-left 0.3s ease;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Три колонки */
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 30px;
+    justify-items: center;
+}
+
+.footer-column {
+    text-align: center;
+}
+
+.footer-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #E2E8F0;
+}
+
+.footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-list li {
+    margin-bottom: 8px;
+}
+
+.footer-link {
+    color: #E2E8F0;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: #38B2AC;
+}
+
+/* Разделитель */
+.footer-divider {
+    border: none;
+    border-color: #38B2AC;
+    opacity: 0.3;
+    margin-bottom: 20px;
+    border-top: 1px solid #38B2AC;
+}
+
+/* Copyright */
+.footer-copyright {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .footer {
+        padding: 30px 15px;
+    }
+}

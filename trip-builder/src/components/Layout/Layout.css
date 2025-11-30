@@ -1,0 +1,44 @@
+/* src/components/Layout/Layout.css */
+
+.layout-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #F0F4F8;
+}
+
+/* Основной контейнер */
+.layout-wrapper {
+    display: flex;
+    flex: 1;
+    margin-top: 60px;
+}
+
+/* Основной контент */
+.layout-main {
+    flex: 1;
+    transition: margin-left 0.3s ease;
+    overflow: auto;
+}
+
+.layout-content {
+    padding: 40px 20px;
+    max-width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .layout-content {
+        padding: 30px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .layout-content {
+        padding: 20px 10px;
+    }
+
+    .layout-main {
+        margin-left: 60px !important;
+    }
+}

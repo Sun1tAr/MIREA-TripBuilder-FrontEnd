@@ -1,0 +1,264 @@
+/* src/components/Common/TripCard.css */
+
+.trip-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    border: 1px solid #E2E8F0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    height: 100%;
+}
+
+.trip-card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    border-color: #CBD5E0;
+}
+
+/* Изображение */
+.trip-card-image {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background-color: #F7FAFC;
+    overflow: hidden;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.trip-card-image-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.trip-card:hover .trip-card-image-img {
+    transform: scale(1.05);
+}
+
+.trip-card-image-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    background: linear-gradient(135deg, #F0F4F8 0%, #E2E8F0 100%);
+}
+
+/* Значки */
+.trip-card-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    background-color: rgba(49, 130, 206, 0.9);
+    color: #FFFFFF;
+    backdrop-filter: blur(4px);
+}
+
+.trip-card-badge--public {
+    background-color: rgba(56, 178, 172, 0.9);
+}
+
+/* Содержимое */
+.trip-card-content {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.trip-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2D3748;
+    margin: 0;
+    word-break: break-word;
+}
+
+.trip-card-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: #718096;
+    flex-wrap: wrap;
+}
+
+.trip-card-description {
+    font-size: 13px;
+    color: #718096;
+    margin: 0;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+/* Теги */
+.trip-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.trip-card-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: #EBF8FF;
+    color: #3182CE;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* Кнопки действия */
+.trip-card-actions {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    border-top: 1px solid #E2E8F0;
+    background-color: #F7FAFC;
+}
+
+.trip-card-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #CBD5E0;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    color: #2D3748;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.trip-card-btn:hover {
+    border-color: #A0AEC0;
+    background-color: #EDF2F7;
+    transform: translateY(-1px);
+}
+
+.trip-card-btn--like {
+    color: #E53E3E;
+}
+
+.trip-card-btn--like:hover {
+    border-color: #E53E3E;
+    background-color: #FEF2F2;
+}
+
+.trip-card-btn--like-active {
+    background-color: #FEF2F2;
+    border-color: #E53E3E;
+    color: #E53E3E;
+}
+
+.trip-card-btn--add {
+    color: #38B2AC;
+}
+
+.trip-card-btn--add:hover {
+    border-color: #38B2AC;
+    background-color: #F0FFFC;
+}
+
+.trip-card-btn--edit {
+    color: #ED8936;
+}
+
+.trip-card-btn--edit:hover {
+    border-color: #ED8936;
+    background-color: #FFFAF0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .trip-card-image {
+        height: 160px;
+    }
+
+    .trip-card-content {
+        padding: 12px;
+        gap: 6px;
+    }
+
+    .trip-card-title {
+        font-size: 14px;
+    }
+
+    .trip-card-meta {
+        font-size: 11px;
+    }
+
+    .trip-card-description {
+        font-size: 12px;
+    }
+
+    .trip-card-actions {
+        padding: 10px 12px;
+    }
+
+    .trip-card-btn {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .trip-card {
+        border-radius: 8px;
+    }
+
+    .trip-card-image {
+        height: 140px;
+    }
+
+    .trip-card-content {
+        padding: 10px;
+        gap: 4px;
+    }
+
+    .trip-card-title {
+        font-size: 13px;
+    }
+
+    .trip-card-meta {
+        font-size: 10px;
+    }
+
+    .trip-card-description {
+        font-size: 11px;
+        line-height: 1.3;
+    }
+
+    .trip-card-tag {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    .trip-card-actions {
+        padding: 8px;
+        gap: 6px;
+    }
+
+    .trip-card-btn {
+        font-size: 10px;
+        padding: 5px 8px;
+    }
+
+    .trip-card-badge {
+        font-size: 9px;
+        padding: 3px 10px;
+    }
+}

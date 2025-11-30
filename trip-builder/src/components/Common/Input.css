@@ -1,0 +1,134 @@
+/* src/components/Common/Input.css */
+
+.input-wrapper {
+    margin-bottom: 12px;
+    width: auto;
+}
+
+.input-wrapper--full {
+    width: 100%;
+}
+
+/* Метка */
+.input-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #2D3748;
+    user-select: none;
+}
+
+/* Поле ввода */
+.input-field {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #CBD5E0;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s ease;
+    background-color: #FFFFFF;
+    color: #2D3748;
+}
+
+.input-field::placeholder {
+    color: #A0AEC0;
+}
+
+.input-field:focus {
+    border-color: #3182CE;
+    box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.1);
+}
+
+.input-field:disabled {
+    background-color: #EDF2F7;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.input-field--error {
+    border-color: #E53E3E;
+}
+
+.input-field--error:focus {
+    border-color: #E53E3E;
+    box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.1);
+}
+
+/* Подсказка */
+.input-hint {
+    margin-top: 4px;
+    font-size: 11px;
+    color: #718096;
+}
+
+/* Ошибка */
+.input-error {
+    margin-top: 4px;
+    font-size: 11px;
+    color: #E53E3E;
+    font-weight: 500;
+}
+
+/* Типы инпутов */
+input[type='email'].input-field,
+input[type='url'].input-field,
+input[type='tel'].input-field {
+    /* Специфичные стили по типам можно добавить здесь */
+}
+
+input[type='number'].input-field {
+    font-family: 'Courier New', monospace;
+}
+
+input[type='date'].input-field,
+input[type='time'].input-field {
+    font-size: 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .input-wrapper {
+        margin-bottom: 10px;
+    }
+
+    .input-label {
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    .input-field {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .input-hint {
+        font-size: 10px;
+    }
+
+    .input-error {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .input-wrapper {
+        margin-bottom: 8px;
+    }
+
+    .input-label {
+        font-size: 11px;
+    }
+
+    .input-field {
+        font-size: 11px;
+        padding: 6px;
+    }
+
+    .input-hint,
+    .input-error {
+        font-size: 9px;
+    }
+}
