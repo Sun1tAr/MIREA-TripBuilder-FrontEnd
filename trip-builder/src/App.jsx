@@ -1,6 +1,11 @@
-// src/App.jsx
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+    AuthProvider,
+    TripsProvider,
+    TasksProvider,
+    UIProvider
+} from './context';
 import Layout from './components/Layout/Layout';
 import Home from './pages/Home';
 import MyTrips from './pages/MyTrips';
@@ -12,21 +17,29 @@ import NotFound from './pages/NotFound';
 import './theme/globals.css';
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="my-trips" element={<MyTrips />} />
-          <Route path="todo" element={<TodoList />} />
-          <Route path="favorites" element={<Favorites />} />
-          <Route path="create" element={<Constructor />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+    return (
+        <AuthProvider>
+            <TripsProvider>
+                <TasksProvider>
+                    <UIProvider>
+                        <BrowserRouter>
+                            <Routes>
+                                <Route path="/" element={<Layout />}>
+                                    <Route index element={<Home />} />
+                                    <Route path="my-trips" element={<MyTrips />} />
+                                    <Route path="todo" element={<TodoList />} />
+                                    <Route path="favorites" element={<Favorites />} />
+                                    <Route path="create" element={<Constructor />} />
+                                    <Route path="profile" element={<Profile />} />
+                                    <Route path="*" element={<NotFound />} />
+                                </Route>
+                            </Routes>
+                        </BrowserRouter>
+                    </UIProvider>
+                </TasksProvider>
+            </TripsProvider>
+        </AuthProvider>
+    );
 }
 
 export default App;

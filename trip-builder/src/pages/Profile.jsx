@@ -4,7 +4,7 @@ import './Profile.css';
 import Input from '../components/Common/Input';
 import { handlers } from '../utils/handlers';
 
-// ✅ ВЫНЕСЕНО ЗА ПРЕДЕЛЫ КОМПОНЕНТА И ОБЁРНУТО В React.memo
+// ✅ ВЫНЕСЕНО ЗА ПРЕДЕЛЫ И ОБЁРНУТО В React.memo
 const Section = React.memo(({ title, children }) => (
     <div className="profile-section">
         <h3 className="profile-section-title">{title}</h3>
@@ -43,7 +43,6 @@ const Profile = () => {
         confirm: '',
     });
 
-    // ✅ ПРАВИЛЬНЫЕ ОБРАБОТЧИКИ
     const handleProfileChange = (field, value) => {
         setProfile((prev) => ({
             ...prev,
