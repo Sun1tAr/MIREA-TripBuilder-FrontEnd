@@ -1,42 +1,29 @@
 // src/pages/Favorites.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Favorites.css';
 import TripCard from '../components/Common/TripCard';
+import { handlers } from '../utils/handlers';
 
 const Favorites = () => {
-    // Путешествия, которые пользователь лайкнул
-    const [favorites, setFavorites] = useState([
-        {
-            id: 201,
-            title: 'Исландия: земля льда и огня',
-            country: 'Исландия',
-            duration: '14 дней',
-            description: 'Водопады, ледники, вулканы и северные сияния',
-            tags: ['Природа', 'Приключение', 'Фотография'],
-            liked: true,
-            isPublic: true,
-        },
-        {
-            id: 202,
-            title: 'Канада: величие природы',
-            country: 'Канада',
-            duration: '11 дней',
-            description: 'Ниагарский водопад, озёра и национальные парки',
-            tags: ['Природа', 'Озёра', 'Пешие прогулки'],
-            liked: true,
-            isPublic: true,
-        },
-        {
-            id: 203,
-            title: 'Марокко: экзотика Африки',
-            country: 'Марокко',
-            duration: '9 дней',
-            description: 'Пустыня Сахара, древние города и базары',
-            tags: ['Культура', 'Экзотика', 'Авантюра'],
-            liked: true,
-            isPublic: true,
-        },
-    ]);
+    const [favorites, setFavorites] = useState([]);
+
+    const loadFavorites = () => {
+        console.log('[FAVORITES] loadFavorites');
+        const trips = handlers.getFavoriteTrips();
+        console.log('[FAVORITES] loaded', trips);
+        setFavorites(Array.isArray(trips) ? trips : []);
+    };
+
+    useEffect(() => {
+        loadFavorites();
+    }, []);
+
+    const handleToggleFavorite = (id) => {
+        console.log('[FAVORITES] toggle like', { id });
+        const isFavorite = handlers.onLike(id);
+        console.log('[FAVORITES] after toggle, isFavorite:', isFavorite);
+        loadFavorites();
+    };
 
     const stats = {
         total: favorites.length,
@@ -44,58 +31,65 @@ const Favorites = () => {
         planned: Math.ceil(favorites.length * 0.3),
     };
 
-    const handleRemoveFromFavorites = (id) => {
-        setFavorites(favorites.filter((trip) => trip.id !== id));
-    };
+    const hasFavorites = favorites.length > 0;
 
     return (
         <div className="favorites">
-            {/* Заголовок */}
-            <div className="favorites-header">
-                <h1 className="favorites-title">❤️ Избранное</h1>
+            <header className="favorites-header">
+                <h1 className="favorites-title">Ваши любимые путешествия и маршруты</h1>
                 <p className="favorites-subtitle">
-                    Ваши любимые путешествия и маршруты
+                    Лайкайте путешествия на главной странице, чтобы сохранить их здесь
                 </p>
-            </div>
+            </header>
 
-            {/* Статистика */}
-            {favorites.length > 0 && (
-                <div className="favorites-stats">
-                    <div className="stat-card">
-                        <div className="stat-number">{stats.total}</div>
-                        <div className="stat-label">Всего</div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="stat-number">{stats.active}</div>
-                        <div className="stat-label">Активных</div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="stat-number">{stats.planned}</div>
-                        <div className="stat-label">Планируемых</div>
-                    </div>
+            <section className="favorites-stats">
+                <div className="favorites-stat-card">
+                    <span className="favorites-stat-label">Всего избранных</span>
+                    <span className="favorites-stat-value">{stats.total}</span>
                 </div>
-            )}
+                <div className="favorites-stat-card">
+                    <span className="favorites-stat-label">Активные планы</span>
+                    <span className="favorites-stat-value">{stats.active}</span>
+                </div>
+                <div className="favorites-stat-card">
+                    <span className="favorites-stat-label">Почти запланировано</span>
+                    <span className="favorites-stat-value">{stats.planned}</span>
+                </div>
+            </section>
 
-            {/* Список путешествий */}
-            {favorites.length > 0 ? (
-                <div className="favorites-grid">
-                    {favorites.map((trip) => (
-                        <TripCard
-                            key={trip.id}
-                            {...trip}
-                            liked={true}
-                            onRemoveFromFavorites={() => handleRemoveFromFavorites(trip.id)}
-                        />
-                    ))}
-                </div>
+            {hasFavorites ? (
+                <section className="favorites-list">
+                    <div className="favorites-grid">
+                        {favorites.map((trip) => (
+                            <TripCard
+                                key={trip.id}
+                                id={trip.id}
+                                title={trip.title}
+                                country={trip.country}
+                                duration={trip.duration}
+                                description={trip.description || ''}
+                                tags={trip.tags || []}
+                                image={trip.image}
+                                liked={true}
+                                isMyTrip={false}
+                                isPublic={!!trip.isPublic}
+                                waypoints={trip.waypoints || []}
+                            />
+                        ))}
+                    </div>
+                </section>
             ) : (
-                <div className="favorites-empty">
-                    <div className="favorites-empty-icon">❤️</div>
-                    <h2 className="favorites-empty-title">У вас нет избранных</h2>
-                    <p className="favorites-empty-text">
-                        Лайкайте путешествия на главной странице, чтобы их сохранить
-                    </p>
-                </div>
+                <section className="favorites-empty">
+                    <div className="favorites-empty-card">
+                        <span className="favorites-empty-icon">❤️</span>
+                        <h2 className="favorites-empty-title">
+                            У вас еще нет избранных путешествий
+                        </h2>
+                        <p className="favorites-empty-text">
+                            Лайкайте путешествия на главной странице, чтобы они появились здесь.
+                        </p>
+                    </div>
+                </section>
             )}
         </div>
     );

@@ -1,111 +1,109 @@
 // src/pages/MyTrips.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MyTrips.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import TripCard from '../components/Common/TripCard';
 import { handlers } from '../utils/handlers';
 
 const MyTrips = () => {
-    // Примеры маршрутов текущего пользователя
-    const [myTrips, setMyTrips] = useState([
-        {
-            id: 101,
-            title: 'Мой Швейцарский тур',
-            country: 'Швейцария',
-            duration: '12 дней',
-            description: 'Полная поездка через швейцарские Альпы и озёра',
-            tags: ['Горы', 'Озёра', 'Приключение'],
-            isMyTrip: true,
-            isPublic: true,
-        },
-        {
-            id: 102,
-            title: 'Тайланд 2024',
-            country: 'Таиланд',
-            duration: '10 дней',
-            description: 'Экзотический отдых с пляжами и храмами',
-            tags: ['Пляж', 'Культура', 'Экзотика'],
-            isMyTrip: true,
-            isPublic: false,
-        },
-        {
-            id: 103,
-            title: 'Норвежские фьорды',
-            country: 'Норвегия',
-            duration: '8 дней',
-            description: 'Авто-тур по красивейшим фьордам Норвегии',
-            tags: ['Природа', 'Фьорды', 'Авто-тур'],
-            isMyTrip: true,
-            isPublic: true,
-        },
-    ]);
+    const [myTrips, setMyTrips] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        console.log('[MY_TRIPS] mount, loading from storage');
+        const trips = handlers.getMyTrips();
+        console.log('[MY_TRIPS] loaded', trips);
+        setMyTrips(Array.isArray(trips) ? trips : []);
+    }, []);
 
     const handleEdit = (id) => {
         handlers.onEditRoute(id);
-        console.log('Редактировать маршрут:', id);
+        console.log('[MY_TRIPS] Редактировать маршрут:', id);
+        navigate(`/create?from=myTrip&tripId=${id}`);
     };
 
     const handleDelete = (id) => {
-        setMyTrips(myTrips.filter((trip) => trip.id !== id));
-        handlers.onDeleteRoute(id);
+        console.log('[MY_TRIPS] delete click', { id });
+        const updated = handlers.onDeleteMyTrip(id);
+        console.log('[MY_TRIPS] after delete', updated);
+        setMyTrips(Array.isArray(updated) ? updated : []);
     };
+
+    const handleTogglePublic = (id) => {
+        console.log('[MY_TRIPS] toggle public click', { id });
+        const updatedTrip = handlers.onToggleMyTripPublic(id);
+        console.log('[MY_TRIPS] after toggle public', updatedTrip);
+        setMyTrips((prev) =>
+            prev.map((t) =>
+                t.id === id ? { ...t, isPublic: updatedTrip?.isPublic } : t
+            )
+        );
+    };
+
+    const hasTrips = myTrips.length > 0;
 
     return (
         <div className="my-trips">
-            {/* Заголовок */}
-            <div className="my-trips-header">
-                <div className="my-trips-title-group">
-                    <h1 className="my-trips-title">🗺️ Мои путешествия</h1>
-                    <p className="my-trips-subtitle">
-                        Ваши созданные маршруты и путешествия
-                    </p>
-                </div>
-                <Link to="/create" className="my-trips-create-btn">
-                    ➕ Создать новое
-                </Link>
-            </div>
+            <header className="my-trips-header">
+                <h1 className="my-trips-title">Ваши созданные маршруты и путешествия</h1>
+                <p className="my-trips-subtitle">
+                    Здесь хранятся маршруты, которые вы сохранили «к себе»
+                </p>
+            </header>
 
-            {/* Список путешествий */}
-            {myTrips.length > 0 ? (
-                <div className="my-trips-grid">
-                    {myTrips.map((trip) => (
-                        <div key={trip.id} className="my-trip-card-wrapper">
-                            <TripCard
-                                {...trip}
-                                onEdit={() => handleEdit(trip.id)}
-                            />
-                            <div className="my-trip-controls">
-                <span
-                    className={`my-trip-status ${
-                        trip.isPublic
-                            ? 'my-trip-status--public'
-                            : 'my-trip-status--private'
-                    }`}
-                >
-                  {trip.isPublic ? '🌐 Публичный' : '🔒 Приватный'}
-                </span>
-                                <button
-                                    onClick={() => handleDelete(trip.id)}
-                                    className="my-trip-delete-btn"
-                                    title="Удалить"
-                                >
-                                    🗑️
-                                </button>
+            {hasTrips ? (
+                <section className="my-trips-list">
+                    <div className="my-trips-grid">
+                        {myTrips.map((trip) => (
+                            <div key={trip.id} className="my-trips-card-wrapper">
+                                <TripCard
+                                    id={trip.id}
+                                    title={trip.title}
+                                    country={trip.country}
+                                    duration={trip.duration}
+                                    description={trip.description || ''}
+                                    tags={trip.tags || []}
+                                    image={trip.image}
+                                    liked={!!trip.liked}
+                                    isMyTrip={true}
+                                    isPublic={!!trip.isPublic}
+                                    waypoints={trip.waypoints || []}
+                                    onEdit={handleEdit}
+                                />
+
+                                <div className="my-trips-actions">
+                                    <button
+                                        className="trip-card-btn trip-card-btn-secondary"
+                                        onClick={() => handleTogglePublic(trip.id)}
+                                    >
+                                        {trip.isPublic ? 'Сделать приватным' : 'Сделать публичным'}
+                                    </button>
+
+                                    <button
+                                        className="trip-card-btn trip-card-btn-danger"
+                                        onClick={() => handleDelete(trip.id)}
+                                    >
+                                        Удалить
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                </section>
             ) : (
-                <div className="my-trips-empty">
-                    <div className="my-trips-empty-icon">🗺️</div>
-                    <h2 className="my-trips-empty-title">У вас нет путешествий</h2>
-                    <p className="my-trips-empty-text">
-                        Создайте свой первый маршрут и поделитесь им с сообществом
-                    </p>
-                    <Link to="/constructor" className="my-trips-empty-btn">
-                        ✨ Создать первое путешествие
-                    </Link>
-                </div>
+                <section className="my-trips-empty">
+                    <div className="my-trips-empty-card">
+                        <h2 className="my-trips-empty-title">
+                            У вас еще нет путешествий
+                        </h2>
+                        <p className="my-trips-empty-text">
+                            Добавьте понравившийся публичный маршрут «к себе», чтобы начать планирование.
+                        </p>
+                        <Link to="/" className="my-trips-empty-btn">
+                            Найти маршрут
+                        </Link>
+                    </div>
+                </section>
             )}
         </div>
     );

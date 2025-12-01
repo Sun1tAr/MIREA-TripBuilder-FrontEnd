@@ -1,221 +1,246 @@
 // src/pages/Home.jsx
+
 import React, { useState, useEffect } from 'react';
 import './Home.css';
 import TripCard from '../components/Common/TripCard';
 import { handlers } from '../utils/handlers';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  // Поля формы поиска
-  const [title, setTitle] = useState('');
-  const [countries, setCountries] = useState('');
-  const [cities, setCities] = useState('');
-  const [durationFrom, setDurationFrom] = useState('');
-  const [durationTo, setDurationTo] = useState('');
+    const navigate = useNavigate();
 
-  // Результаты поиска
-  const [trips, setTrips] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false);
+    // Поля формы поиска
+    const [title, setTitle] = useState('');
+    const [countries, setCountries] = useState('');
+    const [cities, setCities] = useState('');
+    const [durationFrom, setDurationFrom] = useState('');
+    const [durationTo, setDurationTo] = useState('');
 
-  // Загрузка всех маршрутов при монтировании
-  useEffect(() => {
-    loadAllTrips();
-  }, []);
+    // Результаты поиска
+    const [trips, setTrips] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [hasSearched, setHasSearched] = useState(false);
 
-  const loadAllTrips = async () => {
-    setIsLoading(true);
-    try {
-      const result = await handlers.getAllPublicTrips();
-      setTrips(Array.isArray(result) ? result : []);
-    } catch (e) {
-      console.error('Ошибка загрузки маршрутов', e);
-      setTrips([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    useEffect(() => {
+        loadAllTrips();
+    }, []);
 
-  const handleSearch = async () => {
-    setIsLoading(true);
-    setHasSearched(true);
-
-    const payload = {
-      title: title.trim() || null,
-      countries: countries
-        .split(',')
-        .map((c) => c.trim())
-        .filter(Boolean),
-      cities: cities
-        .split(',')
-        .map((c) => c.trim())
-        .filter(Boolean),
-      durationFrom: durationFrom ? Number(durationFrom) : null,
-      durationTo: durationTo ? Number(durationTo) : null,
+    const loadAllTrips = async () => {
+        console.log('[HOME] loadAllTrips start');
+        setIsLoading(true);
+        try {
+            const result = await handlers.getAllPublicTrips();
+            console.log('[HOME] loadAllTrips result', result);
+            setTrips(Array.isArray(result) ? result : []);
+        } catch (e) {
+            console.error('[HOME] Ошибка загрузки маршрутов', e);
+            setTrips([]);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
-    try {
-      const result = await handlers.searchTrips(payload);
-      setTrips(Array.isArray(result) ? result : []);
-    } catch (e) {
-      console.error('Ошибка при поиске путешествий', e);
-      setTrips([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    const handleSearch = async () => {
+        console.log('[HOME] handleSearch');
+        setIsLoading(true);
+        setHasSearched(true);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleSearch();
-  };
+        const payload = {
+            title: title.trim() || null,
+            countries: countries
+                .split(',')
+                .map((c) => c.trim())
+                .filter(Boolean),
+            cities: cities
+                .split(',')
+                .map((c) => c.trim())
+                .filter(Boolean),
+            durationFrom: durationFrom ? Number(durationFrom) : null,
+            durationTo: durationTo ? Number(durationTo) : null,
+        };
 
-  return (
-    <div className="home">
-      {/* Заголовок */}
-      <header className="home-header">
-        <h1 className="home-title">Публичные путешествия</h1>
-        <p className="home-subtitle">
-          Откройте новые места и вдохновитесь идеями путешествий от нашего сообщества
-        </p>
-      </header>
+        try {
+            const result = await handlers.searchTrips(payload);
+            console.log('[HOME] search result', result);
+            setTrips(Array.isArray(result) ? result : []);
+        } catch (e) {
+            console.error('[HOME] Ошибка при поиске путешествий', e);
+            setTrips([]);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-      {/* Фильтры и поиск */}
-      <section className="home-filters">
-        <form onSubmit={handleSubmit}>
-          <div className="filter-section">
-            <div className="filters-grid">
-              {/* Название маршрута */}
-              <div className="filter-group">
-                <label className="filter-label" htmlFor="title">
-                  Название маршрута
-                </label>
-                <input
-                  id="title"
-                  type="text"
-                  className="filter-input"
-                  placeholder="Например, Путешествие по Италии"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-              </div>
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        handleSearch();
+    };
 
-              {/* Список стран */}
-              <div className="filter-group">
-                <label className="filter-label" htmlFor="countries">
-                  Страны
-                </label>
-                <input
-                  id="countries"
-                  type="text"
-                  className="filter-input"
-                  placeholder="Например, Франция, Италия"
-                  value={countries}
-                  onChange={(e) => setCountries(e.target.value)}
-                />
-              </div>
+    // Лайк — только избранное + обновление флага в стейте
+    const handleLike = (id) => {
+        console.log('[HOME] like click', { id });
+        const isFavorite = handlers.onLike(id);
+        console.log('[HOME] like stored, isFavorite:', isFavorite);
 
-              {/* Список городов */}
-              <div className="filter-group">
-                <label className="filter-label" htmlFor="cities">
-                  Города
-                </label>
-                <input
-                  id="cities"
-                  type="text"
-                  className="filter-input"
-                  placeholder="Например, Париж, Рим"
-                  value={cities}
-                  onChange={(e) => setCities(e.target.value)}
-                />
-              </div>
+        setTrips((prev) =>
+            prev.map((t) => (t.id === id ? { ...t, liked: isFavorite } : t))
+        );
+    };
 
-              {/* Длительность */}
-              <div className="filter-group">
-                <label className="filter-label">Желаемая длительность (дни)</label>
-                <div className="filter-input-group">
-                  <input
-                    type="number"
-                    min="1"
-                    className="filter-input"
-                    placeholder="От"
-                    value={durationFrom}
-                    onChange={(e) => setDurationFrom(e.target.value)}
-                  />
-                  <input
-                    type="number"
-                    min="1"
-                    className="filter-input"
-                    placeholder="До"
-                    value={durationTo}
-                    onChange={(e) => setDurationTo(e.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+    // Добавить к себе — копия + открыть в конструкторе
+    const handleAddToMyTrips = (id) => {
+        console.log('[HOME] addToMyTrips click', { id });
+        const copy = handlers.onAddToMyTrips(id);
+        console.log('[HOME] addToMyTrips copy', copy);
 
-          {/* Кнопка поиска */}
-          <button
-            type="submit"
-            className="home-search-btn"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Поиск...' : 'Искать маршруты'}
-          </button>
-        </form>
-      </section>
+        if (copy && copy.id) {
+            navigate(`/create?from=myTrip&tripId=${copy.id}`);
+        }
+    };
 
-      {/* Результаты */}
-      <section className="home-results">
-        {hasSearched && (
-          <p className="home-results-count">
-            Найдено {trips.length} маршрутов
-          </p>
-        )}
+    return (
+        <div className="home">
+            <header className="home-header">
+                <h1 className="home-title">Публичные путешествия</h1>
+                <p className="home-subtitle">
+                    Откройте новые места и вдохновитесь идеями путешествий от нашего сообщества
+                </p>
+            </header>
 
-        {isLoading ? (
-          <div className="home-empty">
-            <span className="home-empty-icon">⏳</span>
-            <h2 className="home-empty-title">Загрузка...</h2>
-          </div>
-        ) : trips.length > 0 ? (
-          <div className="home-grid">
-            {trips.map((trip) => (
-              <TripCard
-                key={trip.id}
-                id={trip.id}
-                title={trip.title}
-                country={trip.country}
-                duration={trip.duration}
-                description={trip.description || ''}
-                tags={trip.tags || []}
-                image={trip.image}
-                liked={trip.liked}
-                isMyTrip={trip.isMyTrip}
-                isPublic={trip.isPublic}
-              />
-            ))}
-          </div>
-        ) : hasSearched ? (
-          <div className="home-empty">
-            <span className="home-empty-icon">🔍</span>
-            <h2 className="home-empty-title">Маршрутов не найдено</h2>
-            <p className="home-empty-text">
-              Попробуйте изменить параметры поиска: уточните название, страны, города или длительность.
-            </p>
-          </div>
-        ) : (
-          <div className="home-empty">
-            <span className="home-empty-icon">🌍</span>
-            <h2 className="home-empty-title">Найдите своё идеальное путешествие</h2>
-            <p className="home-empty-text">
-              Укажите интересующие страны, города и длительность, чтобы увидеть подходящие маршруты.
-            </p>
-          </div>
-        )}
-      </section>
-    </div>
-  );
+            <section className="home-filters">
+                <form onSubmit={handleSubmit}>
+                    <div className="filter-section">
+                        <div className="filters-grid">
+                            <div className="filter-group">
+                                <label className="filter-label" htmlFor="title">
+                                    Название маршрута
+                                </label>
+                                <input
+                                    id="title"
+                                    type="text"
+                                    className="filter-input"
+                                    placeholder="Например, Путешествие по Италии"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label className="filter-label" htmlFor="countries">
+                                    Страны
+                                </label>
+                                <input
+                                    id="countries"
+                                    type="text"
+                                    className="filter-input"
+                                    placeholder="Например, Франция, Италия"
+                                    value={countries}
+                                    onChange={(e) => setCountries(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label className="filter-label" htmlFor="cities">
+                                    Города
+                                </label>
+                                <input
+                                    id="cities"
+                                    type="text"
+                                    className="filter-input"
+                                    placeholder="Например, Париж, Рим"
+                                    value={cities}
+                                    onChange={(e) => setCities(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label className="filter-label">
+                                    Желаемая длительность (дни)
+                                </label>
+                                <div className="filter-input-group">
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        className="filter-input"
+                                        placeholder="От"
+                                        value={durationFrom}
+                                        onChange={(e) => setDurationFrom(e.target.value)}
+                                    />
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        className="filter-input"
+                                        placeholder="До"
+                                        value={durationTo}
+                                        onChange={(e) => setDurationTo(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="home-search-btn"
+                        disabled={isLoading}
+                    >
+                        {isLoading ? 'Поиск...' : 'Искать маршруты'}
+                    </button>
+                </form>
+            </section>
+
+            <section className="home-results">
+                {hasSearched && (
+                    <p className="home-results-count">
+                        Найдено {trips.length} маршрутов
+                    </p>
+                )}
+
+                {isLoading ? (
+                    <div className="home-empty">
+                        <span className="home-empty-icon">⏳</span>
+                        <h2 className="home-empty-title">Загрузка...</h2>
+                    </div>
+                ) : trips.length > 0 ? (
+                    <div className="home-grid">
+                        {trips.map((trip) => (
+                            <TripCard
+                                key={trip.id}
+                                id={trip.id}
+                                title={trip.title}
+                                country={trip.country}
+                                duration={trip.duration}
+                                description={trip.description || ''}
+                                tags={trip.tags || []}
+                                image={trip.image}
+                                liked={!!trip.liked}
+                                isMyTrip={false}
+                                isPublic={trip.isPublic}
+                                waypoints={trip.waypoints || []}
+                                onAddToMyTrips={handleAddToMyTrips}
+                            />
+                        ))}
+                    </div>
+                ) : hasSearched ? (
+                    <div className="home-empty">
+                        <span className="home-empty-icon">🔍</span>
+                        <h2 className="home-empty-title">Маршрутов не найдено</h2>
+                        <p className="home-empty-text">
+                            Попробуйте изменить параметры поиска: уточните название, страны, города или длительность.
+                        </p>
+                    </div>
+                ) : (
+                    <div className="home-empty">
+                        <span className="home-empty-icon">🌍</span>
+                        <h2 className="home-empty-title">Найдите своё идеальное путешествие</h2>
+                        <p className="home-empty-text">
+                            Укажите интересующие страны, города и длительность, чтобы увидеть подходящие маршруты.
+                        </p>
+                    </div>
+                )}
+            </section>
+        </div>
+    );
 };
 
 export default Home;
