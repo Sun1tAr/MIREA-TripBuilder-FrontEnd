@@ -261,4 +261,294 @@
         font-size: 9px;
         padding: 3px 10px;
     }
+    
+    /* Новые стили для кнопки "Подробнее" */
+.trip-card-btn--details {
+  color: #38B2AC;
+}
+
+.trip-card-btn--details:hover {
+  border-color: #38B2AC;
+  background-color: #F0FFFC;
+}
+
+/* Модальное окно */
+.trip-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  animation: modalFadeIn 0.3s ease;
+}
+
+.trip-modal {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  max-width: 90vw;
+  max-height: 90vh;
+  width: 600px;
+  max-width: 700px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  animation: modalSlideIn 0.3s ease;
+}
+
+.trip-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #E2E8F0;
+  background-color: #F8FAFC;
+}
+
+.trip-modal-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1A202C;
+}
+
+.trip-modal-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #718096;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.trip-modal-close:hover {
+  background-color: #E2E8F0;
+  color: #4A5568;
+}
+
+.trip-modal-content {
+  padding: 24px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.trip-modal-image {
+  width: 100%;
+  height: 240px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  background-color: #F7FAFC;
+}
+
+.trip-modal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.trip-modal-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  height: 100%;
+  background: linear-gradient(135deg, #F0F4F8 0%, #E2E8F0 100%);
+}
+
+.trip-modal-info {
+  margin-bottom: 24px;
+}
+
+.trip-modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #4A5568;
+}
+
+.trip-modal-badge {
+  padding: 4px 12px;
+  background-color: #38B2AC;
+  color: white;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.trip-modal-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #2D3748;
+  margin: 0 0 16px 0;
+}
+
+.trip-modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.trip-modal-tag {
+  padding: 6px 12px;
+  background-color: #EBF8FF;
+  color: #3182CE;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.trip-modal-waypoints {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #E2E8F0;
+}
+
+.trip-modal-section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2D3748;
+  margin: 0 0 16px 0;
+}
+
+.waypoints-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.waypoint-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background-color: #F8FAFC;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+}
+
+.waypoint-number {
+  font-size: 18px;
+  font-weight: 700;
+  color: #38B2AC;
+  min-width: 24px;
+  text-align: center;
+}
+
+.waypoint-info {
+  flex: 1;
+}
+
+.waypoint-location {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2D3748;
+  margin-bottom: 4px;
+}
+
+.waypoint-desc {
+  font-size: 13px;
+  color: #718096;
+  line-height: 1.5;
+}
+
+/* Анимации */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Скроллбар модалки */
+.trip-modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.trip-modal-content::-webkit-scrollbar-track {
+  background: #F7FAFC;
+  border-radius: 3px;
+}
+
+.trip-modal-content::-webkit-scrollbar-thumb {
+  background: #CBD5E0;
+  border-radius: 3px;
+}
+
+.trip-modal-content::-webkit-scrollbar-thumb:hover {
+  background: #A0AEC0;
+}
+
+/* Responsive модалки */
+@media (max-width: 768px) {
+  .trip-modal {
+    width: 95vw;
+    max-height: 95vh;
+    border-radius: 12px;
+  }
+
+  .trip-modal-header {
+    padding: 16px 20px;
+  }
+
+  .trip-modal-title {
+    font-size: 20px;
+  }
+
+  .trip-modal-content {
+    padding: 20px;
+  }
+
+  .trip-modal-image {
+    height: 200px;
+  }
+
+  .waypoint-item {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .trip-modal-image {
+    height: 160px;
+  }
+
+  .trip-modal-content {
+    padding: 16px;
+  }
+
+  .trip-card-actions {
+    flex-direction: column;
+  }
+
+  .trip-card-btn {
+    width: 100%;
+  }
+}
+
 }

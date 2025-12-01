@@ -2,195 +2,186 @@
 import React, { useState } from 'react';
 import './Home.css';
 import TripCard from '../components/Common/TripCard';
-import Input from '../components/Common/Input';
 import { handlers } from '../utils/handlers';
 
 const Home = () => {
-    const [searchQuery, setSearchQuery] = useState('');
-    const [filterCountry, setFilterCountry] = useState('');
-    const [filterCity, setFilterCity] = useState('');
-    const [filterDuration, setFilterDuration] = useState('');
+  // Поля формы поиска
+  const [title, setTitle] = useState('');
+  const [countries, setCountries] = useState('');
+  const [cities, setCities] = useState('');
+  const [durationFrom, setDurationFrom] = useState('');
+  const [durationTo, setDurationTo] = useState('');
 
-    // Примеры данных путешествий
-    const trips = [
-        {
-            id: 1,
-            title: 'Парижская романтика',
-            country: 'Франция',
-            duration: '5 дней',
-            description: 'Исследуйте город света, его достопримечательности и культуру',
-            tags: ['Европа', 'Город', 'Романтика'],
-            isPublic: true,
-        },
-        {
-            id: 2,
-            title: 'Горный Алтай',
-            country: 'Россия',
-            duration: '10 дней',
-            description: 'Поход в горы, озёра и нетронутая природа Алтая',
-            tags: ['Природа', 'Горы', 'Приключения'],
-            isPublic: true,
-        },
-        {
-            id: 3,
-            title: 'Токийский опыт',
-            country: 'Япония',
-            duration: '7 дней',
-            description: 'Погружение в культуру Японии, храмы и современные технологии',
-            tags: ['Азия', 'Город', 'Культура'],
-            isPublic: true,
-        },
-        {
-            id: 4,
-            title: 'Пляжи Бали',
-            country: 'Индонезия',
-            duration: '8 дней',
-            description: 'Релакс на пляжах, серфинг и индонезийская кухня',
-            tags: ['Пляж', 'Релакс', 'Серфинг'],
-            isPublic: true,
-        },
-    ];
+  // Результаты поиска
+  const [trips, setTrips] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
 
-    const handleFilterClick = (type) => {
-        if (type === 'country') {
-            handlers.onFilterCountry(filterCountry || 'Все страны');
-        } else if (type === 'city') {
-            handlers.onFilterCity(filterCity || 'Все города');
-        } else if (type === 'duration') {
-            handlers.onFilterDuration(filterDuration || 'Вся длительность');
-        }
+  const handleSearch = async () => {
+    setIsLoading(true);
+    setHasSearched(true);
+
+    const payload = {
+      title: title.trim() || null,
+      countries: countries
+        .split(',')
+        .map((c) => c.trim())
+        .filter(Boolean),
+      cities: cities
+        .split(',')
+        .map((c) => c.trim())
+        .filter(Boolean),
+      durationFrom: durationFrom ? Number(durationFrom) : null,
+      durationTo: durationTo ? Number(durationTo) : null,
     };
 
-    const handleSearch = () => {
-        handlers.onSearch(searchQuery);
-    };
+    try {
+      // Предполагаем, что handlers.searchTrips вернет промис с массивом маршрутов
+      const result = await handlers.searchTrips(payload);
+      setTrips(Array.isArray(result) ? result : []);
+    } catch (e) {
+      console.error('Ошибка при поиске путешествий', e);
+      setTrips([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    const filteredTrips = trips.filter((trip) => {
-        const matchesSearch = trip.title
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase());
-        const matchesCountry = !filterCountry || trip.country === filterCountry;
-        const matchesDuration = !filterDuration || trip.duration === filterDuration;
-        return matchesSearch && matchesCountry && matchesDuration;
-    });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSearch();
+  };
 
-    return (
-        <div className="home">
-            {/* Заголовок */}
-            <div className="home-header">
-                <h1 className="home-title">🌍 Trip Builder</h1>
-                <p className="home-subtitle">
-                    Откройте новые места и вдохновитесь идеями путешествий от нашего
-                    сообщества
-                </p>
+  return (
+    <div className="home">
+      {/* Заголовок */}
+      <header className="home-header">
+        <h1 className="home-title">Публичные путешествия</h1>
+        <p className="home-subtitle">
+          Откройте новые места и вдохновитесь идеями путешествий от нашего сообщества
+        </p>
+      </header>
+
+      {/* Фильтры и поиск */}
+      <section className="home-filters">
+        <form onSubmit={handleSubmit}>
+          <div className="filter-section">
+            <div className="filters-grid">
+              {/* Название маршрута */}
+              <div className="filter-group">
+                <label className="filter-label" htmlFor="title">
+                  Название маршрута
+                </label>
+                <input
+                  id="title"
+                  type="text"
+                  className="filter-input"
+                  placeholder="Например, Путешествие по Италии"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </div>
+
+              {/* Список стран */}
+              <div className="filter-group">
+                <label className="filter-label" htmlFor="countries">
+                  Страны
+                </label>
+                <input
+                  id="countries"
+                  type="text"
+                  className="filter-input"
+                  placeholder="Например, Франция, Италия"
+                  value={countries}
+                  onChange={(e) => setCountries(e.target.value)}
+                />
+              </div>
+
+              {/* Список городов */}
+              <div className="filter-group">
+                <label className="filter-label" htmlFor="cities">
+                  Города
+                </label>
+                <input
+                  id="cities"
+                  type="text"
+                  className="filter-input"
+                  placeholder="Например, Париж, Рим"
+                  value={cities}
+                  onChange={(e) => setCities(e.target.value)}
+                />
+              </div>
+
+              {/* Длительность */}
+              <div className="filter-group">
+                <label className="filter-label">Желаемая длительность (дни)</label>
+                <div className="filter-input-group">
+                  <input
+                    type="number"
+                    min="1"
+                    className="filter-input"
+                    placeholder="От"
+                    value={durationFrom}
+                    onChange={(e) => setDurationFrom(e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    min="1"
+                    className="filter-input"
+                    placeholder="До"
+                    value={durationTo}
+                    onChange={(e) => setDurationTo(e.target.value)}
+                  />
+                </div>
+              </div>
             </div>
+          </div>
 
-            {/* Поиск и фильтры */}
-            <div className="home-filters">
-                {/* Поиск */}
-                <div className="filter-section">
-                    <Input
-                        label="🔍 Поиск"
-                        placeholder="Введите название маршрута..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        fullWidth
-                    />
-                </div>
+          {/* Кнопка поиска */}
+          <button
+            type="submit"
+            className="home-search-btn"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Поиск...' : 'Искать маршруты'}
+          </button>
+        </form>
+      </section>
 
-                {/* Фильтры */}
-                <div className="filters-grid">
-                    {/* Страна */}
-                    <div className="filter-group">
-                        <label className="filter-label">📍 Страна</label>
-                        <div className="filter-input-group">
-                            <input
-                                type="text"
-                                placeholder="Например: Франция"
-                                value={filterCountry}
-                                onChange={(e) => setFilterCountry(e.target.value)}
-                                className="filter-input"
-                            />
-                            <button
-                                onClick={() => handleFilterClick('country')}
-                                className="filter-btn"
-                            >
-                                ✓
-                            </button>
-                        </div>
-                    </div>
+      {/* Результаты */}
+      <section className="home-results">
+        {hasSearched && (
+          <p className="home-results-count">
+            Найдено {trips.length} маршрутов
+          </p>
+        )}
 
-                    {/* Город */}
-                    <div className="filter-group">
-                        <label className="filter-label">🏙️ Город</label>
-                        <div className="filter-input-group">
-                            <input
-                                type="text"
-                                placeholder="Например: Париж"
-                                value={filterCity}
-                                onChange={(e) => setFilterCity(e.target.value)}
-                                className="filter-input"
-                            />
-                            <button
-                                onClick={() => handleFilterClick('city')}
-                                className="filter-btn"
-                            >
-                                ✓
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Длительность */}
-                    <div className="filter-group">
-                        <label className="filter-label">⏱️ Длительность</label>
-                        <select
-                            value={filterDuration}
-                            onChange={(e) => setFilterDuration(e.target.value)}
-                            className="filter-select"
-                        >
-                            <option value="">Все</option>
-                            <option value="3 дня">3 дня</option>
-                            <option value="5 дней">5 дней</option>
-                            <option value="7 дней">7 дней</option>
-                            <option value="10 дней">10 дней</option>
-                            <option value="14 дней">14 дней</option>
-                        </select>
-                    </div>
-                </div>
-
-                {/* Кнопка поиска */}
-                <button onClick={handleSearch} className="home-search-btn">
-                    🔎 Искать
-                </button>
-            </div>
-
-            {/* Результаты */}
-            {filteredTrips.length > 0 ? (
-                <div className="home-results">
-                    <p className="home-results-count">
-                        Найдено {filteredTrips.length} маршрутов
-                    </p>
-                    <div className="home-grid">
-                        {filteredTrips.map((trip) => (
-                            <TripCard
-                                key={trip.id}
-                                {...trip}
-                                onAddToMyTrips={(id) => console.log('Добавлено:', id)}
-                            />
-                        ))}
-                    </div>
-                </div>
-            ) : (
-                <div className="home-empty">
-                    <div className="home-empty-icon">🔍</div>
-                    <h2 className="home-empty-title">Ничего не найдено</h2>
-                    <p className="home-empty-text">
-                        Попробуйте изменить параметры поиска
-                    </p>
-                </div>
-            )}
-        </div>
-    );
+        {trips.length > 0 ? (
+          <div className="home-grid">
+            {trips.map((trip) => (
+              <TripCard key={trip.id} trip={trip} />
+            ))}
+          </div>
+        ) : hasSearched ? (
+          <div className="home-empty">
+            <span className="home-empty-icon">🔍</span>
+            <h2 className="home-empty-title">Маршрутов не найдено</h2>
+            <p className="home-empty-text">
+              Попробуйте изменить параметры поиска: уточните название, страны, города или длительность.
+            </p>
+          </div>
+        ) : (
+          <div className="home-empty">
+            <span className="home-empty-icon">🌍</span>
+            <h2 className="home-empty-title">Найдите своё идеальное путешествие</h2>
+            <p className="home-empty-text">
+              Укажите интересующие страны, города и длительность, чтобы увидеть подходящие маршруты.
+            </p>
+          </div>
+        )}
+      </section>
+    </div>
+  );
 };
 
 export default Home;
