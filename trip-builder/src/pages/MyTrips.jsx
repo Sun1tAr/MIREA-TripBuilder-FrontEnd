@@ -60,7 +60,7 @@ const MyTrips = () => {
                         Ваши созданные маршруты и путешествия
                     </p>
                 </div>
-                <Link to="/constructor" className="my-trips-create-btn">
+                <Link to="/create" className="my-trips-create-btn">
                     ➕ Создать новое
                 </Link>
             </div>

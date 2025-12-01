@@ -1,0 +1,3 @@
+// src/constants/mockTrips.js
+
+

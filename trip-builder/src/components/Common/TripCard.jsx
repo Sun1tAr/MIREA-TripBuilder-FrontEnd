@@ -1,5 +1,5 @@
 // src/components/Common/TripCard.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import './TripCard.css';
 import { handlers } from '../../utils/handlers';
 
@@ -8,8 +8,8 @@ const TripCard = ({
   title,
   country,
   duration,
-  description,
-  tags,
+  description = '',
+  tags = [],
   image,
   waypoints = [], // Маршрутные точки для модалки
   liked = false,
@@ -17,13 +17,14 @@ const TripCard = ({
   isPublic = false,
   onEdit,
   onAddToMyTrips,
-  onDetails, // Новый пропс для открытия модалки
+  onDetails, // опциональный внешний колбэк
 }) => {
   const [isLiked, setIsLiked] = React.useState(liked);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const handleLike = () => {
-    setIsLiked(!isLiked);
+    const next = !isLiked;
+    setIsLiked(next);
     handlers.onLike(id);
   };
 
@@ -33,7 +34,7 @@ const TripCard = ({
   };
 
   const handleEdit = () => {
-    handlers.onEditRoute(id);
+    handlers.onEditRoute?.(id);
     onEdit?.(id);
   };
 
@@ -46,54 +47,65 @@ const TripCard = ({
     setIsModalOpen(false);
   };
 
+  const shortDescription = (description || '').substring(0, 80);
+  const hasLongDescription = (description || '').length > 80;
+
   return (
     <>
       {/* Основная карточка */}
-      <article className="trip-card">
+      <div className="trip-card">
         <div className="trip-card-image">
           {image ? (
-            <img src={image} alt={title} className="trip-card-image-img" />
+            <img
+              src={image}
+              alt={title}
+              className="trip-card-image-img"
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            />
           ) : (
-            <div className="trip-card-image-placeholder">🗺️</div>
+            <div className="trip-card-image-placeholder">🌄</div>
           )}
-          <span className={`trip-card-badge ${isPublic ? 'trip-card-badge--public' : ''}`}>
-            {isPublic ? 'Публичный' : 'Приватный'}
-          </span>
+
+          {isPublic && <div className="trip-card-badge trip-card-badge--public">Публичный</div>}
         </div>
 
         <div className="trip-card-content">
           <h3 className="trip-card-title">{title}</h3>
-          
+
           <div className="trip-card-meta">
-            <span>{country}</span>
-            <span>{duration}</span>
+            {country && <span>{country}</span>}
+            {duration && <span>{duration}</span>}
           </div>
 
-          <p className="trip-card-description">
-            {description.substring(0, 80)}
-            {description.length > 80 ? '...' : ''}
-          </p>
+          {description && (
+            <p className="trip-card-description">
+              {shortDescription}
+              {hasLongDescription ? '…' : ''}
+            </p>
+          )}
 
-          {/* Теги */}
           {tags && tags.length > 0 && (
             <div className="trip-card-tags">
-              {tags.slice(0, 3).map((tag, index) => (
-                <span key={index} className="trip-card-tag">{tag}</span>
+              {tags.map((tag, idx) => (
+                <span key={idx} className="trip-card-tag">
+                  {tag}
+                </span>
               ))}
-              {tags.length > 3 && (
-                <span className="trip-card-tag">+{tags.length - 3}</span>
-              )}
             </div>
           )}
         </div>
 
-        {/* Кнопки */}
         <div className="trip-card-actions">
           <button
-            className="trip-card-btn"
+            className={
+              'trip-card-btn trip-card-btn--like' +
+              (isLiked ? ' trip-card-btn--like-active' : '')
+            }
             onClick={handleLike}
           >
-            {isLiked ? '❤️' : '🤍'} Лайк
+            {isLiked ? '♥ В избранном' : '♡ В избранное'}
           </button>
 
           {isMyTrip ? (
@@ -101,14 +113,14 @@ const TripCard = ({
               className="trip-card-btn trip-card-btn--edit"
               onClick={handleEdit}
             >
-              ✏️ Редактировать
+              ✏ Редактировать
             </button>
           ) : (
             <button
               className="trip-card-btn trip-card-btn--add"
               onClick={handleAddToMyTrips}
             >
-              ➕ Добавить
+              ➕ Добавить к себе
             </button>
           )}
 
@@ -116,12 +128,12 @@ const TripCard = ({
             className="trip-card-btn trip-card-btn--details"
             onClick={handleDetails}
           >
-            👁️ Подробнее
+            👁 Подробнее
           </button>
         </div>
-      </article>
+      </div>
 
-      {/* Модальное окно подробностей */}
+      {/* Модальное окно с деталями маршрута */}
       {isModalOpen && (
         <div className="trip-modal-overlay" onClick={closeModal}>
           <div className="trip-modal" onClick={(e) => e.stopPropagation()}>
@@ -133,50 +145,51 @@ const TripCard = ({
             </div>
 
             <div className="trip-modal-content">
-              {/* Изображение */}
               <div className="trip-modal-image">
                 {image ? (
                   <img src={image} alt={title} />
                 ) : (
-                  <div className="trip-modal-image-placeholder">🗺️</div>
+                  <div className="trip-modal-image-placeholder">🌄</div>
                 )}
               </div>
 
-              {/* Основная информация */}
               <div className="trip-modal-info">
                 <div className="trip-modal-meta">
-                  <span className="trip-modal-badge">
-                    {isPublic ? 'Публичный маршрут' : 'Приватный маршрут'}
-                  </span>
-                  <span>{country}</span>
-                  <span>{duration}</span>
+                  {country && <span>{country}</span>}
+                  {duration && <span>{duration}</span>}
+                  {isPublic && (
+                    <span className="trip-modal-badge">Публичный маршрут</span>
+                  )}
                 </div>
 
-                <p className="trip-modal-description">{description}</p>
+                {description && (
+                  <p className="trip-modal-description">{description}</p>
+                )}
 
                 {tags && tags.length > 0 && (
                   <div className="trip-modal-tags">
-                    {tags.map((tag, index) => (
-                      <span key={index} className="trip-modal-tag">{tag}</span>
+                    {tags.map((tag, idx) => (
+                      <span key={idx} className="trip-modal-tag">
+                        {tag}
+                      </span>
                     ))}
                   </div>
                 )}
               </div>
 
-              {/* Маршрутные точки */}
               {waypoints && waypoints.length > 0 && (
                 <div className="trip-modal-waypoints">
-                  <h3 className="trip-modal-section-title">Маршрутные точки</h3>
+                  <h3 className="trip-modal-section-title">Точки маршрута</h3>
                   <div className="waypoints-list">
-                    {waypoints.map((waypoint, index) => (
+                    {waypoints.map((wp, index) => (
                       <div key={index} className="waypoint-item">
-                        <span className="waypoint-number">{index + 1}</span>
+                        <div className="waypoint-number">{index + 1}</div>
                         <div className="waypoint-info">
                           <div className="waypoint-location">
-                            {waypoint.city || waypoint.country || 'Неизвестно'}
+                            {wp.city || wp.location || 'Точка маршрута'}
                           </div>
-                          {waypoint.description && (
-                            <div className="waypoint-desc">{waypoint.description}</div>
+                          {wp.description && (
+                            <div className="waypoint-desc">{wp.description}</div>
                           )}
                         </div>
                       </div>

@@ -1,5 +1,5 @@
 // src/pages/Home.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 import TripCard from '../components/Common/TripCard';
 import { handlers } from '../utils/handlers';
@@ -16,6 +16,24 @@ const Home = () => {
   const [trips, setTrips] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+
+  // Загрузка всех маршрутов при монтировании
+  useEffect(() => {
+    loadAllTrips();
+  }, []);
+
+  const loadAllTrips = async () => {
+    setIsLoading(true);
+    try {
+      const result = await handlers.getAllPublicTrips();
+      setTrips(Array.isArray(result) ? result : []);
+    } catch (e) {
+      console.error('Ошибка загрузки маршрутов', e);
+      setTrips([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSearch = async () => {
     setIsLoading(true);
@@ -36,7 +54,6 @@ const Home = () => {
     };
 
     try {
-      // Предполагаем, что handlers.searchTrips вернет промис с массивом маршрутов
       const result = await handlers.searchTrips(payload);
       setTrips(Array.isArray(result) ? result : []);
     } catch (e) {
@@ -156,10 +173,27 @@ const Home = () => {
           </p>
         )}
 
-        {trips.length > 0 ? (
+        {isLoading ? (
+          <div className="home-empty">
+            <span className="home-empty-icon">⏳</span>
+            <h2 className="home-empty-title">Загрузка...</h2>
+          </div>
+        ) : trips.length > 0 ? (
           <div className="home-grid">
             {trips.map((trip) => (
-              <TripCard key={trip.id} trip={trip} />
+              <TripCard
+                key={trip.id}
+                id={trip.id}
+                title={trip.title}
+                country={trip.country}
+                duration={trip.duration}
+                description={trip.description || ''}
+                tags={trip.tags || []}
+                image={trip.image}
+                liked={trip.liked}
+                isMyTrip={trip.isMyTrip}
+                isPublic={trip.isPublic}
+              />
             ))}
           </div>
         ) : hasSearched ? (
