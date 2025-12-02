@@ -1,5 +1,6 @@
 /* src/components/Trip/WaypointForm.css */
 
+/* БАЗОВЫЕ СТИЛИ ФОРМЫ */
 .waypoint-form {
     background-color: #F7FAFC;
     border-radius: 8px;
@@ -77,10 +78,6 @@
     color: #A0AEC0;
 }
 
-.waypoint-form-input--half {
-    width: 100%;
-}
-
 /* Текстареа */
 .waypoint-form-textarea {
     width: 100%;
@@ -129,23 +126,70 @@
     transform: translateY(1px);
 }
 
-/* Responsive */
+/* НОВЫЕ СТИЛИ (НАИВЫСШАЯ СПЕЦИФИЧНОСТЬ) */
+.waypoint-form-group .waypoint-form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #2D3748;
+    margin-bottom: 6px;
+}
+
+.waypoint-form .waypoint-form-divider {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 8px 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: #718096;
+}
+
+.waypoint-form .waypoint-form-divider::before,
+.waypoint-form .waypoint-form-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: #E2E8F0;
+}
+
+.waypoint-form .waypoint-form-preview {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    background-color: #EBF8FF;
+    border-left: 3px solid #3182CE;
+    border-radius: 4px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.waypoint-form .waypoint-preview-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #2C5282;
+    white-space: nowrap;
+}
+
+.waypoint-form .waypoint-preview-value {
+    font-size: 11px;
+    color: #2C5282;
+    font-weight: 500;
+    word-break: break-word;
+}
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
     .waypoint-form {
         padding: 10px;
         gap: 10px;
     }
-
-    .waypoint-form-row {
-        grid-template-columns: 1fr 1fr;
-    }
-
     .waypoint-form-number {
         width: 24px;
         height: 24px;
         font-size: 11px;
     }
-
     .waypoint-form-content {
         margin-left: 32px;
     }
@@ -155,18 +199,14 @@
     .waypoint-form {
         padding: 8px;
     }
-
-    .waypoint-form-input {
-        font-size: 12px;
-        padding: 6px;
-    }
-
+    .waypoint-form-input,
     .waypoint-form-textarea {
         font-size: 12px;
         padding: 6px;
+    }
+    .waypoint-form-textarea {
         min-height: 40px;
     }
-
     .waypoint-form-number {
         width: 22px;
         height: 22px;
@@ -174,13 +214,14 @@
         top: 6px;
         left: 6px;
     }
-
     .waypoint-form-content {
         margin-left: 30px;
     }
-
     .waypoint-form-delete-btn {
         font-size: 11px;
         padding: 5px 10px;
+    }
+    .waypoint-form-row {
+        grid-template-columns: 1fr;
     }
 }
