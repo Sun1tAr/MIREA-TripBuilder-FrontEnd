@@ -2,10 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import './TodoList.css';
 import TaskCard from '../components/Common/TaskCard';
+import TripModal from '../components/Common/TripModal';
 import { handlers } from '../utils/handlers';
 
 const TodoList = () => {
     const [myTrips, setMyTrips] = useState([]);
+    const [selectedTripForModal, setSelectedTripForModal] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // Загружаем путешествия при монтировании компонента
     useEffect(() => {
@@ -14,59 +17,32 @@ const TodoList = () => {
         setMyTrips(Array.isArray(trips) ? trips : []);
     }, []);
 
-    const [tasks, setTasks] = useState({
-        before: [
-            {
-                id: 1,
-                title: 'Оформить паспорт',
-                description: 'Проверить срок действия',
-                tripId: 1,
-                tripName: 'Парижская романтика',
-                priority: 'high',
-            },
-            {
-                id: 2,
-                title: 'Забронировать отель',
-                description: 'На даты 15-20 августа',
-                tripId: 1,
-                tripName: 'Парижская романтика',
-                priority: 'high',
-            },
-        ],
-        during: [
-            {
-                id: 3,
-                title: 'Посетить Эйфелеву башню',
-                description: 'Подняться на вершину',
-                tripId: 1,
-                tripName: 'Парижская романтика',
-                priority: 'medium',
-            },
-            {
-                id: 4,
-                title: 'Попробовать местную кухню',
-                description: 'Макароны, сыр, вино',
-                tripId: 1,
-                tripName: 'Парижская романтика',
-                priority: 'low',
-            },
-        ],
-        after: [
-            {
-                id: 5,
-                title: 'Обработать фотографии',
-                description: 'Загрузить на облако',
-                tripId: 1,
-                tripName: 'Парижская романтика',
-                priority: 'low',
-            },
-        ],
+    // Загружаем задачи из localStorage при монтировании
+    const [tasks, setTasks] = useState(() => {
+        const saved = handlers.getTasksFromStorage();
+        console.log('[TODOLIST] Loaded tasks from storage:', saved);
+        return saved;
     });
 
-    const [deletedTasks, setDeletedTasks] = useState([]);
+    const [deletedTasks, setDeletedTasks] = useState(() => {
+        const trash = handlers.getTrashFromStorage();
+        console.log('[TODOLIST] Loaded trash from storage:', trash);
+        return trash;
+    });
+
     const [newTaskColumn, setNewTaskColumn] = useState('before');
     const [newTaskTitle, setNewTaskTitle] = useState('');
     const [newTaskTripId, setNewTaskTripId] = useState(myTrips.length > 0 ? myTrips[0].id.toString() : '');
+
+    // Сохраняем задачи в localStorage при изменении
+    useEffect(() => {
+        handlers.saveTasksToStorage(tasks);
+    }, [tasks]);
+
+    // Сохраняем корзину в localStorage при изменении
+    useEffect(() => {
+        handlers.saveTrashToStorage(deletedTasks);
+    }, [deletedTasks]);
 
     const handleAddTask = () => {
         if (newTaskTitle.trim() && newTaskTripId) {
@@ -79,6 +55,7 @@ const TodoList = () => {
                     description: '',
                     tripId: selectedTrip.id,
                     tripName: selectedTrip.title,
+                    tripCountry: selectedTrip.country,
                     priority: 'medium',
                 };
 
@@ -101,6 +78,7 @@ const TodoList = () => {
             ...prev,
             [column]: prev[column].filter((t) => t.id !== id),
         }));
+        handlers.addTaskToTrash(task, column);
         setDeletedTasks((prev) => [...prev, { ...task, column }]);
     };
 
@@ -123,9 +101,23 @@ const TodoList = () => {
             );
             if (confirmDelete) {
                 setDeletedTasks([]);
-                handlers.onClearTrash();
+                handlers.clearTrash();
             }
         }
+    };
+
+    // Обработчик клика по названию путешествия
+    const handleTripNameClick = (tripId) => {
+        const trip = myTrips.find(t => t.id === tripId);
+        if (trip) {
+            setSelectedTripForModal(trip);
+            setIsModalOpen(true);
+        }
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedTripForModal(null);
     };
 
     const columns = [
@@ -218,8 +210,10 @@ const TodoList = () => {
                                         title={task.title}
                                         description={task.description}
                                         tripName={task.tripName}
+                                        tripId={task.tripId}
                                         priority={task.priority}
                                         onDelete={() => handleDeleteTask(task.id, column.id)}
+                                        onTripNameClick={() => handleTripNameClick(task.tripId)}
                                     />
                                 ))
                             )}
@@ -259,6 +253,14 @@ const TodoList = () => {
                         ))}
                     </div>
                 </div>
+            )}
+
+            {/* Модальное окно путешествия */}
+            {isModalOpen && selectedTripForModal && (
+                <TripModal
+                    trip={selectedTripForModal}
+                    onClose={closeModal}
+                />
             )}
         </div>
     );

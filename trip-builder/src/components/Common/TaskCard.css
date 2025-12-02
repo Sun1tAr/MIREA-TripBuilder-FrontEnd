@@ -38,6 +38,7 @@
 }
 
 /* Чекбокс */
+
 .task-card-checkbox {
     display: flex;
     align-items: center;
@@ -62,7 +63,7 @@
 .task-card-checkbox-input:checked {
     background-color: #3182CE;
     border-color: #3182CE;
-    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white"><path d="M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z"/></svg>');
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
@@ -73,6 +74,7 @@
 }
 
 /* Содержимое */
+
 .task-card-content {
     flex: 1;
     min-width: 0;
@@ -97,9 +99,22 @@
     font-size: 11px;
     color: #3182CE;
     font-weight: 500;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.task-card-trip:hover {
+    text-decoration: underline;
+    color: #2c5282;
 }
 
 /* Приоритет */
+
 .task-card-priority {
     flex-shrink: 0;
 }
@@ -133,6 +148,7 @@
 }
 
 /* Приоритеты */
+
 .task-card-priority-select--high {
     color: #E53E3E;
     border-color: #FED7D7;
@@ -152,6 +168,7 @@
 }
 
 /* Кнопки действия */
+
 .task-card-actions {
     display: flex;
     gap: 4px;
@@ -198,6 +215,7 @@
 }
 
 /* Responsive */
+
 @media (max-width: 768px) {
     .task-card {
         padding: 10px;

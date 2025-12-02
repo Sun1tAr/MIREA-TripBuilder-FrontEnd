@@ -8,11 +8,13 @@ const TaskCard = ({
                       title,
                       description,
                       tripName,
+                      tripId,
                       priority = 'medium',
                       completed = false,
                       isDeleted = false,
                       onDelete,
                       onRestore,
+                      onTripNameClick,
                   }) => {
     const [currentPriority, setCurrentPriority] = React.useState(priority);
     const [isCompleted, setIsCompleted] = React.useState(completed);
@@ -39,34 +41,43 @@ const TaskCard = ({
         (p) => p.value === currentPriority
     );
 
+    const cardClass = `task-card ${isCompleted ? 'task-card--completed' : ''} ${
+        isDeleted ? 'task-card--deleted' : ''
+    }`;
+
     return (
-        <div
-            className={`task-card ${isCompleted ? 'task-card--completed' : ''} ${
-                isDeleted ? 'task-card--deleted' : ''
-            }`}
-        >
-            {/* Чекбокс завершения */}
+        <div className={cardClass}>
+            {/* Чекбокс */}
             <div className="task-card-checkbox">
                 <input
                     type="checkbox"
+                    id={`task-${id}`}
+                    className="task-card-checkbox-input"
                     checked={isCompleted}
                     onChange={handleToggleComplete}
-                    className="task-card-checkbox-input"
-                    id={`task-${id}`}
                 />
-                <label htmlFor={`task-${id}`} className="task-card-checkbox-label" />
+                <label
+                    htmlFor={`task-${id}`}
+                    className="task-card-checkbox-label"
+                ></label>
             </div>
 
-            {/* Основная информация */}
+            {/* Содержимое */}
             <div className="task-card-content">
-                <h4 className="task-card-title">{title}</h4>
+                <h3 className="task-card-title">{title}</h3>
+
                 {description && (
                     <p className="task-card-description">{description}</p>
                 )}
+
                 {tripName && (
-                    <div className="task-card-trip">
-                        🧭 {tripName}
-                    </div>
+                    <button
+                        onClick={() => onTripNameClick && onTripNameClick()}
+                        className="task-card-trip"
+                        title="Открыть информацию о путешествии"
+                    >
+                        ✈️ {tripName}
+                    </button>
                 )}
             </div>
 
@@ -76,7 +87,7 @@ const TaskCard = ({
                     value={currentPriority}
                     onChange={handlePriorityChange}
                     className={`task-card-priority-select task-card-priority-select--${currentPriority}`}
-                    disabled={isDeleted}
+                    title="Выберите приоритет"
                 >
                     {priorityOptions.map((option) => (
                         <option key={option.value} value={option.value}>
@@ -86,23 +97,25 @@ const TaskCard = ({
                 </select>
             </div>
 
-            {/* Кнопки действия */}
+            {/* Действия */}
             <div className="task-card-actions">
-                {isDeleted ? (
+                {onDelete && (
                     <button
-                        onClick={() => onRestore?.(id)}
-                        className="task-card-btn task-card-btn--restore"
-                        title="Восстановить"
-                    >
-                        ↩️
-                    </button>
-                ) : (
-                    <button
-                        onClick={() => onDelete?.(id)}
+                        onClick={onDelete}
                         className="task-card-btn task-card-btn--delete"
-                        title="Удалить"
+                        title="Удалить задачу"
                     >
                         🗑️
+                    </button>
+                )}
+
+                {onRestore && (
+                    <button
+                        onClick={onRestore}
+                        className="task-card-btn task-card-btn--restore"
+                        title="Восстановить задачу"
+                    >
+                        ↩️
                     </button>
                 )}
             </div>
