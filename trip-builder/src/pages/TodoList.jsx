@@ -1,24 +1,35 @@
 // src/pages/TodoList.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './TodoList.css';
 import TaskCard from '../components/Common/TaskCard';
 import { handlers } from '../utils/handlers';
 
 const TodoList = () => {
+    const [myTrips, setMyTrips] = useState([]);
+
+    // Загружаем путешествия при монтировании компонента
+    useEffect(() => {
+        const trips = handlers.getMyTrips();
+        console.log('[TODOLIST] Loaded trips:', trips);
+        setMyTrips(Array.isArray(trips) ? trips : []);
+    }, []);
+
     const [tasks, setTasks] = useState({
         before: [
             {
                 id: 1,
                 title: 'Оформить паспорт',
                 description: 'Проверить срок действия',
-                tripName: 'Европа',
+                tripId: 1,
+                tripName: 'Парижская романтика',
                 priority: 'high',
             },
             {
                 id: 2,
                 title: 'Забронировать отель',
                 description: 'На даты 15-20 августа',
-                tripName: 'Франция',
+                tripId: 1,
+                tripName: 'Парижская романтика',
                 priority: 'high',
             },
         ],
@@ -27,14 +38,16 @@ const TodoList = () => {
                 id: 3,
                 title: 'Посетить Эйфелеву башню',
                 description: 'Подняться на вершину',
-                tripName: 'Франция',
+                tripId: 1,
+                tripName: 'Парижская романтика',
                 priority: 'medium',
             },
             {
                 id: 4,
                 title: 'Попробовать местную кухню',
                 description: 'Макароны, сыр, вино',
-                tripName: 'Франция',
+                tripId: 1,
+                tripName: 'Парижская романтика',
                 priority: 'low',
             },
         ],
@@ -43,7 +56,8 @@ const TodoList = () => {
                 id: 5,
                 title: 'Обработать фотографии',
                 description: 'Загрузить на облако',
-                tripName: 'Франция',
+                tripId: 1,
+                tripName: 'Парижская романтика',
                 priority: 'low',
             },
         ],
@@ -52,23 +66,32 @@ const TodoList = () => {
     const [deletedTasks, setDeletedTasks] = useState([]);
     const [newTaskColumn, setNewTaskColumn] = useState('before');
     const [newTaskTitle, setNewTaskTitle] = useState('');
+    const [newTaskTripId, setNewTaskTripId] = useState(myTrips.length > 0 ? myTrips[0].id.toString() : '');
 
     const handleAddTask = () => {
-        if (newTaskTitle.trim()) {
-            const newTask = {
-                id:
-                    Math.max(...Object.values(tasks).flat().map((t) => t.id), 0) + 1,
-                title: newTaskTitle,
-                description: '',
-                tripName: '',
-                priority: 'medium',
-            };
-            setTasks((prev) => ({
-                ...prev,
-                [newTaskColumn]: [...prev[newTaskColumn], newTask],
-            }));
-            setNewTaskTitle('');
-            handlers.onAddTask(newTaskColumn);
+        if (newTaskTitle.trim() && newTaskTripId) {
+            const selectedTrip = myTrips.find(trip => trip.id === parseInt(newTaskTripId));
+
+            if (selectedTrip) {
+                const newTask = {
+                    id: Math.max(...Object.values(tasks).flat().map((t) => t.id), 0) + 1,
+                    title: newTaskTitle,
+                    description: '',
+                    tripId: selectedTrip.id,
+                    tripName: selectedTrip.title,
+                    priority: 'medium',
+                };
+
+                setTasks((prev) => ({
+                    ...prev,
+                    [newTaskColumn]: [...prev[newTaskColumn], newTask],
+                }));
+
+                setNewTaskTitle('');
+                handlers.onAddTask(newTaskColumn);
+            }
+        } else if (!newTaskTripId) {
+            alert('Пожалуйста, выберите путешествие');
         }
     };
 
@@ -113,16 +136,30 @@ const TodoList = () => {
 
     return (
         <div className="todo-list">
-            {/* Заголовок */}
             <div className="todo-header">
-                <h1 className="todo-title">✅ Список дел</h1>
+                <h1 className="todo-title">✈️ Список дел путешествий</h1>
                 <p className="todo-subtitle">
                     Планируйте и отслеживайте задачи для ваших путешествий
                 </p>
             </div>
 
-            {/* Добавление новой задачи */}
+            {/* Форма добавления задачи */}
             <div className="todo-add-task">
+                {/* Селект путешествия */}
+                <select
+                    value={newTaskTripId}
+                    onChange={(e) => setNewTaskTripId(e.target.value)}
+                    className="todo-trip-select"
+                >
+                    <option value="">-- Выберите путешествие --</option>
+                    {myTrips.map((trip) => (
+                        <option key={trip.id} value={trip.id}>
+                            {trip.title} ({trip.country})
+                        </option>
+                    ))}
+                </select>
+
+                {/* Селект колонки */}
                 <select
                     value={newTaskColumn}
                     onChange={(e) => setNewTaskColumn(e.target.value)}
@@ -134,20 +171,28 @@ const TodoList = () => {
                         </option>
                     ))}
                 </select>
+
+                {/* Инпут для названия задачи */}
                 <input
                     type="text"
                     value={newTaskTitle}
                     onChange={(e) => setNewTaskTitle(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && handleAddTask()}
-                    placeholder="Добавьте новую задачу..."
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                            handleAddTask();
+                        }
+                    }}
+                    placeholder="Введите название задачи..."
                     className="todo-input"
                 />
+
+                {/* Кнопка добавления */}
                 <button onClick={handleAddTask} className="todo-add-btn">
-                    ➕ Добавить
+                    + Добавить
                 </button>
             </div>
 
-            {/* Три колонки */}
+            {/* Три колонки задач */}
             <div className="todo-columns">
                 {columns.map((column) => (
                     <div key={column.id} className="todo-column">
@@ -155,29 +200,35 @@ const TodoList = () => {
                             <h2 className="todo-column-title">
                                 {column.icon} {column.title}
                             </h2>
-                            <span className="todo-column-count">{tasks[column.id].length}</span>
+                            <span className="todo-column-count">
+                                {tasks[column.id].length}
+                            </span>
                         </div>
 
-                        {tasks[column.id].length > 0 ? (
-                            <div className="todo-column-tasks">
-                                {tasks[column.id].map((task) => (
+                        <div className="todo-column-tasks">
+                            {tasks[column.id].length === 0 ? (
+                                <div className="todo-column-empty">
+                                    Нет задач
+                                </div>
+                            ) : (
+                                tasks[column.id].map((task) => (
                                     <TaskCard
                                         key={task.id}
-                                        {...task}
+                                        id={task.id}
+                                        title={task.title}
+                                        description={task.description}
+                                        tripName={task.tripName}
+                                        priority={task.priority}
                                         onDelete={() => handleDeleteTask(task.id, column.id)}
                                     />
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="todo-column-empty">
-                                <p>Нет задач</p>
-                            </div>
-                        )}
+                                ))
+                            )}
+                        </div>
                     </div>
                 ))}
             </div>
 
-            {/* Корзина удаленных задач */}
+            {/* Корзина */}
             {deletedTasks.length > 0 && (
                 <div className="todo-trash">
                     <div className="todo-trash-header">
@@ -187,20 +238,22 @@ const TodoList = () => {
                         <button
                             onClick={handleClearTrash}
                             className="todo-clear-trash-btn"
-                            disabled={deletedTasks.length === 0}
                         >
-                            🧹 Очистить
+                            Очистить корзину
                         </button>
                     </div>
+
                     <div className="todo-trash-tasks">
                         {deletedTasks.map((task) => (
                             <div key={task.id} className="todo-trash-task">
-                                <span className="todo-trash-task-title">{task.title}</span>
+                                <span className="todo-trash-task-title">
+                                    {task.title}
+                                </span>
                                 <button
                                     onClick={() => handleRestoreTask(task.id)}
                                     className="todo-restore-btn"
                                 >
-                                    ↩️ Восстановить
+                                    Восстановить
                                 </button>
                             </div>
                         ))}

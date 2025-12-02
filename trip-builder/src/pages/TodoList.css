@@ -36,6 +36,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
+.todo-trip-select,
 .todo-column-select,
 .todo-input {
     padding: 10px;
@@ -45,11 +46,32 @@
     font-family: inherit;
     outline: none;
     transition: all 0.2s ease;
+    background-color: #FFFFFF;
+    color: #2D3748;
+}
+
+.todo-trip-select {
+    min-width: 200px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232D3748' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 32px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 .todo-column-select {
     min-width: 180px;
-    background-color: #FFFFFF;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232D3748' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 32px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 .todo-input {
@@ -57,6 +79,7 @@
     min-width: 200px;
 }
 
+.todo-trip-select:focus,
 .todo-column-select:focus,
 .todo-input:focus {
     border-color: #3182CE;
@@ -277,6 +300,7 @@
         padding: 12px;
     }
 
+    .todo-trip-select,
     .todo-column-select,
     .todo-input {
         min-width: 100%;
@@ -340,6 +364,7 @@
         gap: 8px;
     }
 
+    .todo-trip-select,
     .todo-column-select,
     .todo-input,
     .todo-add-btn {
@@ -347,6 +372,7 @@
         padding: 8px;
     }
 
+    .todo-trip-select,
     .todo-column-select {
         min-width: auto;
     }
