@@ -48,11 +48,19 @@
 
 .trip-modal__header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     padding: 24px;
     border-bottom: 1px solid #E2E8F0;
     gap: 16px;
+}
+
+.trip-modal__title-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
 }
 
 .trip-modal__title {
@@ -60,7 +68,35 @@
     font-weight: 700;
     color: #2D3748;
     margin: 0;
-    flex: 1;
+    word-break: break-word;
+}
+
+/* Плашка статуса путешествия */
+.trip-modal__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+/* Плашка "Мое путешествие" - золотистый песок */
+.trip-modal__status--own {
+    background-color: #FEF3C7;
+    color: #92400E;
+    border: 1px solid #FCD34D;
+}
+
+/* Плашка "Публичное путешествие" */
+.trip-modal__status--public {
+    background-color: #EBF8FF;
+    color: #3182CE;
+    border: 1px solid #BEE3F8;
 }
 
 .trip-modal__close {
@@ -77,6 +113,7 @@
     justify-content: center;
     border-radius: 6px;
     transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .trip-modal__close:hover {
@@ -124,12 +161,14 @@
     font-weight: 600;
     color: #718096;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .trip-modal__value {
     font-size: 14px;
     color: #2D3748;
     font-weight: 500;
+    word-break: break-word;
 }
 
 .trip-modal__description {
@@ -145,11 +184,12 @@
     margin: 0;
 }
 
-.trip-modal__description p {
+.trip-modal__description-text {
     font-size: 14px;
     color: #4A5568;
     line-height: 1.6;
     margin: 0;
+    word-break: break-word;
 }
 
 .trip-modal__tags {
@@ -228,6 +268,8 @@
     font-size: 13px;
     color: #4A5568;
     margin: 0;
+    line-height: 1.4;
+    word-break: break-word;
 }
 
 .trip-modal__waypoint-dates {
@@ -238,19 +280,61 @@
     color: #718096;
 }
 
-.trip-modal__waypoint-date,
-.trip-modal__waypoint-time {
+.trip-modal__waypoint-date {
     display: flex;
     align-items: center;
     gap: 4px;
 }
 
+/* Подвал с кнопками */
 .trip-modal__footer {
     padding: 16px 24px;
     border-top: 1px solid #E2E8F0;
     display: flex;
     justify-content: flex-end;
     gap: 12px;
+    background-color: #F7FAFC;
+}
+
+/* Кнопки действия */
+.trip-modal__btn {
+    flex: 1;
+    padding: 10px 20px;
+    border: 1px solid #CBD5E0;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    color: #2D3748;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.trip-modal__btn:hover {
+    border-color: #A0AEC0;
+    background-color: #EDF2F7;
+    transform: translateY(-1px);
+}
+
+.trip-modal__btn--edit {
+    color: #ED8936;
+}
+
+.trip-modal__btn--edit:hover {
+    border-color: #ED8936;
+    background-color: #FFFAF0;
+}
+
+.trip-modal__btn--add {
+    color: #38B2AC;
+}
+
+.trip-modal__btn--add:hover {
+    border-color: #38B2AC;
+    background-color: #F0FFFC;
 }
 
 .trip-modal__btn-close {
@@ -299,6 +383,7 @@
 
     .trip-modal__header {
         padding: 16px;
+        flex-direction: column;
     }
 
     .trip-modal__title {
@@ -318,12 +403,27 @@
     .trip-modal__image {
         height: 200px;
     }
+
+    .trip-modal__status {
+        padding: 5px 10px;
+        font-size: 10px;
+    }
+
+    .trip-modal__footer {
+        flex-direction: column;
+    }
+
+    .trip-modal__btn,
+    .trip-modal__btn-close {
+        width: 100%;
+    }
 }
 
 @media (max-width: 480px) {
     .trip-modal__header {
         flex-direction: column;
         align-items: flex-start;
+        padding: 12px;
     }
 
     .trip-modal__title {
@@ -347,5 +447,28 @@
         width: 28px;
         height: 28px;
         font-size: 12px;
+    }
+
+    .trip-modal__close {
+        width: 28px;
+        height: 28px;
+        font-size: 20px;
+    }
+
+    .trip-modal__status {
+        padding: 4px 8px;
+        font-size: 9px;
+    }
+
+    .trip-modal__footer {
+        flex-direction: column;
+        padding: 12px;
+    }
+
+    .trip-modal__btn,
+    .trip-modal__btn-close {
+        width: 100%;
+        font-size: 12px;
+        padding: 8px 16px;
     }
 }

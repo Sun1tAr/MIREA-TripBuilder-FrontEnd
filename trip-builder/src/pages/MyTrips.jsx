@@ -1,13 +1,18 @@
 // src/pages/MyTrips.jsx
+
 import React, { useEffect, useState } from 'react';
 import './MyTrips.css';
 import { Link, useNavigate } from 'react-router-dom';
 import TripCard from '../components/Common/TripCard';
+import TripModal from '../components/Common/TripModal';
 import { handlers } from '../utils/handlers';
 
 const MyTrips = () => {
     const [myTrips, setMyTrips] = useState([]);
+    const [selectedTrip, setSelectedTrip] = useState(null);
     const navigate = useNavigate();
+
+    const currentUserId = localStorage.getItem('userId') || '';
 
     useEffect(() => {
         console.log('[MY_TRIPS] mount, loading from storage');
@@ -40,16 +45,38 @@ const MyTrips = () => {
         );
     };
 
+    const handleOpenModal = (trip) => {
+        const normalizedWaypoints = (trip.waypoints || []).map((wp) => ({
+            ...wp,
+            city: wp.city || '',
+            description: wp.description || '',
+            startDate: wp.startDate || wp.startDateTime?.slice(0, 10) || '',
+            endDate: wp.endDate || wp.endDateTime?.slice(0, 10) || '',
+        }));
+
+        setSelectedTrip({
+            ...trip,
+            waypoints: normalizedWaypoints,
+            createdBy: currentUserId,
+        });
+    };
+
+    const closeModal = () => {
+        setSelectedTrip(null);
+    };
+
     const hasTrips = myTrips.length > 0;
 
     return (
         <div className="my-trips">
-            <header className="my-trips-header">
-                <h1 className="my-trips-title">Ваши созданные маршруты и путешествия</h1>
-                <p className="my-trips-subtitle">
-                    Здесь хранятся маршруты, которые вы сохранили «к себе»
-                </p>
-            </header>
+            <div className="my-trips-header">
+                <div className="my-trips-title-group">
+                    <h1 className="my-trips-title">📍 Мои путешествия</h1>
+                </div>
+                <Link to="/home" className="my-trips-create-btn">
+                    + Найти маршрут
+                </Link>
+            </div>
 
             {hasTrips ? (
                 <section className="my-trips-list">
@@ -61,22 +88,24 @@ const MyTrips = () => {
                                     title={trip.title}
                                     country={trip.country}
                                     duration={trip.duration}
-                                    description={trip.description || ''}
-                                    tags={trip.tags || []}
+                                    description={trip.description}
+                                    tags={trip.tags}
                                     image={trip.image}
-                                    liked={!!trip.liked}
+                                    waypoints={trip.waypoints}
+                                    liked={trip.liked || false}
                                     isMyTrip={true}
-                                    isPublic={!!trip.isPublic}
-                                    waypoints={trip.waypoints || []}
+                                    isPublic={trip.isPublic}
+                                    createdBy={currentUserId}
                                     onEdit={handleEdit}
                                 />
+
 
                                 <div className="my-trips-actions">
                                     <button
                                         className="trip-card-btn trip-card-btn-secondary"
                                         onClick={() => handleTogglePublic(trip.id)}
                                     >
-                                        {trip.isPublic ? 'Сделать приватным' : 'Сделать публичным'}
+                                        {trip.isPublic ? '🌍 Публичный' : '🔒 Приватный'}
                                     </button>
 
                                     <button
@@ -86,24 +115,34 @@ const MyTrips = () => {
                                         Удалить
                                     </button>
                                 </div>
+
                             </div>
                         ))}
                     </div>
                 </section>
             ) : (
-                <section className="my-trips-empty">
-                    <div className="my-trips-empty-card">
-                        <h2 className="my-trips-empty-title">
-                            У вас еще нет путешествий
-                        </h2>
-                        <p className="my-trips-empty-text">
-                            Добавьте понравившийся публичный маршрут «к себе», чтобы начать планирование.
-                        </p>
-                        <Link to="/" className="my-trips-empty-btn">
-                            Найти маршрут
-                        </Link>
-                    </div>
-                </section>
+                <div className="my-trips-empty">
+                    <div className="my-trips-empty-icon">🗺️</div>
+                    <h3 className="my-trips-empty-title">Путешествий пока нет</h3>
+                    <p className="my-trips-empty-text">
+                        Добавьте понравившийся публичный маршрут «к себе», чтобы начать
+                        планирование.
+                    </p>
+                    <Link to="/home" className="my-trips-empty-btn">
+                        Найти маршрут
+                    </Link>
+                </div>
+            )}
+
+            {selectedTrip && (
+                <TripModal
+                    trip={selectedTrip}
+                    onClose={closeModal}
+                    currentUserId={currentUserId}
+                    isMyTrip={true}
+                    onEdit={() => handleEdit(selectedTrip.id)}
+                    onAddToMyTrips={() => {}}
+                />
             )}
         </div>
     );
