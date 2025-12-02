@@ -36,7 +36,7 @@ const Home = () => {
 
             // Загружаем свои маршруты
             const myTrips = handlers.getMyTrips();
-            const myPublicTrips = myTrips;
+            const myPublicTrips = myTrips.filter((t) => t.isPublic);
 
             // Объединяем, добавляя к своим маршрутам флаги
             const allTrips = [

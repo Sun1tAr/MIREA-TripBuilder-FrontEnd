@@ -77,7 +77,7 @@ const TripCard = ({
         <>
             <div className="trip-card">
                 {/* Изображение */}
-                <div className="trip-card-image">
+                <div className="trip-card-image" onClick={handleDetails}>
                     {image ? (
                         <img src={image} alt={title} className="trip-card-image-img" />
                     ) : (
@@ -91,7 +91,7 @@ const TripCard = ({
                 </div>
 
                 {/* Контент */}
-                <div className="trip-card-content">
+                <div className="trip-card-content" onClick={handleDetails}>
                     <h3 className="trip-card-title">{title}</h3>
 
                     {/* Мета информация */}
@@ -142,10 +142,10 @@ const TripCard = ({
                         {isLiked ? '❤️' : '🤍'} Лайк
                     </button>
 
-                    {/* Подробнее */}
-                    <button className="trip-card-btn trip-card-btn--details" onClick={handleDetails}>
-                        👁️ Подробнее
-                    </button>
+                    {/*/!* Подробнее *!/*/}
+                    {/*<button className="trip-card-btn trip-card-btn--details" onClick={handleDetails}>*/}
+                    {/*    👁️ Подробнее*/}
+                    {/*</button>*/}
                 </div>
             </div>
 

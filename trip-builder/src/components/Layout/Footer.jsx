@@ -56,7 +56,7 @@ const Footer = ({ sidebarWidth }) => {
 
                 {/* Copyright */}
                 <div className="footer-copyright">
-                    © 2024 Trip Builder. Все права защищены.
+                    © 2025 Trip Builder. Все права защищены.
                 </div>
             </div>
         </footer>
