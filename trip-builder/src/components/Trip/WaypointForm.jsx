@@ -8,6 +8,33 @@ const WaypointForm = ({ index, waypoint, onChange, onRemove, canRemove }) => {
         onChange(waypoint.id, field, value);
     };
 
+    const handleNumberChangeWithDotLimit = (field, e) => {
+        let value = e.target.value;
+
+        // Удаляем все символы, кроме цифр и точки
+        value = value.replace(/[^0-9.]/g, '');
+
+        // Убираем лишние точки (оставляем только первую)
+        const parts = value.split('.');
+        if (parts.length > 2) {
+            value = parts[0] + '.' + parts.slice(1).join('');
+        }
+
+        // Вставляем точку после 2 цифр, если её нет
+        if (value.length > 2 && !value.includes('.')) {
+            value = value.slice(0, 2) + '.' + value.slice(2);
+        }
+
+        // Ограничение на знаки после точки (максимум 4)
+        if (value.includes('.')) {
+            const [integerPart, decimalPart = ''] = value.split('.');
+            const limitedDecimalPart = decimalPart.slice(0, 6); // лимит 4 знака
+            value = integerPart + (limitedDecimalPart ? '.' + limitedDecimalPart : '.');
+        }
+
+        handleChange(field, value);
+    };
+
     return (
         <div className="waypoint-form">
             {/* Номер точки */}
@@ -28,19 +55,17 @@ const WaypointForm = ({ index, waypoint, onChange, onRemove, canRemove }) => {
                 {/* Координаты */}
                 <div className="waypoint-form-row">
                     <input
-                        type="number"
+                        type="text"
                         placeholder="Широта"
                         value={waypoint.latitude}
-                        onChange={(e) => handleChange('latitude', e.target.value)}
-                        step="0.0001"
+                        onChange={(e) => handleNumberChangeWithDotLimit('latitude', e)}
                         className="waypoint-form-input waypoint-form-input--half"
                     />
                     <input
-                        type="number"
+                        type="text"
                         placeholder="Долгота"
                         value={waypoint.longitude}
-                        onChange={(e) => handleChange('longitude', e.target.value)}
-                        step="0.0001"
+                        onChange={(e) => handleNumberChangeWithDotLimit('longitude', e)}
                         className="waypoint-form-input waypoint-form-input--half"
                     />
                 </div>
@@ -53,7 +78,7 @@ const WaypointForm = ({ index, waypoint, onChange, onRemove, canRemove }) => {
                     className="waypoint-form-textarea"
                 />
 
-                {/* 1. Надпись "Прибытие" + поля */}
+                {/* Лейбл "Прибытие" + поля */}
                 <div className="waypoint-form-group">
                     <label className="waypoint-form-label">Прибытие</label>
                     <div className="waypoint-form-row">
@@ -72,7 +97,7 @@ const WaypointForm = ({ index, waypoint, onChange, onRemove, canRemove }) => {
                     </div>
                 </div>
 
-                {/* 2. Надпись "Отбытие" + поля */}
+                {/* Лейбл "Отбытие" + поля */}
                 <div className="waypoint-form-group">
                     <label className="waypoint-form-label">Отбытие</label>
                     <div className="waypoint-form-row">
@@ -93,31 +118,29 @@ const WaypointForm = ({ index, waypoint, onChange, onRemove, canRemove }) => {
 
                 {/* Preview пребывания */}
                 {waypoint.startDate && waypoint.startTime && waypoint.endDate && waypoint.endTime && (() => {
-                  const start = new Date(`${waypoint.startDate}T${waypoint.startTime}`);
-                  const end = new Date(`${waypoint.endDate}T${waypoint.endTime}`);
-                  const diffMs = end - start;
-                  if (diffMs < 0) return null; // если дата конца раньше начала — не показываем
+                    const start = new Date(`${waypoint.startDate}T${waypoint.startTime}`);
+                    const end = new Date(`${waypoint.endDate}T${waypoint.endTime}`);
+                    const diffMs = end - start;
+                    if (diffMs < 0) return null;
 
-                  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-                  const diffHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                  const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                    const diffHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
 
-                  let durationStr = '';
+                    let durationStr = '';
+                    if (diffDays > 0) durationStr += `${diffDays} дн. `;
+                    if (diffHours > 0) durationStr += `${diffHours} ч. `;
+                    if (diffMinutes > 0) durationStr += `${diffMinutes} мин. `;
 
-                  if (diffDays > 0) durationStr += `${diffDays} дн. `;
-                  if (diffHours > 0) durationStr += `${diffHours} ч. `;
-                  if (diffMinutes > 0) durationStr += `${diffMinutes} мин. `;
+                    if (durationStr === '') durationStr = 'меньше минуты';
 
-                  if (durationStr === '') durationStr = 'меньше минуты';
-
-                  return (
-                    <div className="waypoint-form-preview">
-                      <span className="waypoint-preview-label">📍 Пребывание: </span>
-                      <span className="waypoint-preview-value">{durationStr.trim()}</span>
-                    </div>
-                  );
+                    return (
+                        <div className="waypoint-form-preview">
+                            <span className="waypoint-preview-label">📍 Пребывание:</span>
+                            <span className="waypoint-preview-value">{durationStr.trim()}</span>
+                        </div>
+                    );
                 })()}
-
 
                 {/* Кнопка удаления */}
                 {canRemove && (
