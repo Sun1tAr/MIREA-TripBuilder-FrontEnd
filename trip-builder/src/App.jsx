@@ -18,7 +18,7 @@ import './theme/globals.css';
 
 function App() {
   const basename =
-    import.meta.env.DEV ? '/' : '/MIREA-TripBuilder-FrontEnd';
+    import.meta.env.DEV ? '/' : '/MIREA-TripBuilder-FrontEnd/';
 
   return (
     <AuthProvider>
