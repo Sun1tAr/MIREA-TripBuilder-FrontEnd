@@ -29,6 +29,8 @@ function App() {
               <Routes>
                 <Route path="" element={<Layout />}>
                   <Route index element={<Home />} />
+                  <Route path="home" element={<Home />} />
+
                   <Route path="my-trips" element={<MyTrips />} />
                   <Route path="todo" element={<TodoList />} />
                   <Route path="favorites" element={<Favorites />} />
