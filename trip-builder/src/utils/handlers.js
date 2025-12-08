@@ -292,7 +292,7 @@ export const MOCK_TRIPS = [
         duration: '6 дней',
         description: 'Колизей, Ватикан, фонтан Треви и паста карбонара каждый день.',
         tags: ['Европа', 'История', 'Гастрономия', 'Италия'],
-        image: 'https://images.unsplash.com/photo-1515549823949-94fd3e9e6e91?w=400&h=200&fit=crop',
+        image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aXRhbHklMjByb21lfGVufDB8fDB8fHww',
         isPublic: true,
         waypoints: [
             {
